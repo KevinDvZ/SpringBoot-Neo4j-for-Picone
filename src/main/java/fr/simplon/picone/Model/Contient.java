@@ -11,9 +11,9 @@ public class Contient {
         private String title;
         private String description;
 
-        @Relationship(type = "Contient", direction = Relationship.INCOMING)
+        @Relationship(type = "Contient", direction = Relationship.OUTGOING)
         private ReportRelationShip reportRelationShip;
-        @Relationship(type = "Contient")
+        @Relationship(type = "Belong")
         private Entity entity;
 
 
