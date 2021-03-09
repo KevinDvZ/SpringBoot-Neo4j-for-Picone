@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MotServiceImpl implements MotService{
@@ -15,8 +16,18 @@ public class MotServiceImpl implements MotService{
     private MotRepository motRepository;
 
     @Override
-    public List<Mot> findAll() {
+    public List<Mot> findNodes() {
         return motRepository.findAll();
+    }
+
+    @Override
+    public List<Mot> findByIdTest(Long id) {
+        return motRepository.trouverNoeudsEnfants(id);
+    }
+
+    @Override
+    public Optional<Mot> findNodesById(Long id) {
+        return motRepository.findById(id);
     }
 
 }

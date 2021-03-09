@@ -5,23 +5,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
-//import org.springframework.data.neo4j.core.schema.Id;
+
+import org.springframework.data.neo4j.core.schema.GeneratedValue;
+import org.springframework.data.neo4j.core.schema.Relationship;
+import org.springframework.data.neo4j.core.schema.Id;
+import org.springframework.data.neo4j.core.schema.Node;
+
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-//@Node("Word")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@NodeEntity(label = "Word")
+@Node("Word")
 public class Mot {
 
     @Id
@@ -30,9 +28,9 @@ public class Mot {
 
     private String word;
 
-   // @Relationship(type="affiche")
-    //@JsonIgnoreProperties("motsSuivants")
-   // private List<MotSuivant> motsSuivants = new ArrayList<>();
-
+    /*
+    @Relationship(type="affiche")
+   private List<Mot> motsSuivants = new ArrayList<>();
+    */
 
 }
