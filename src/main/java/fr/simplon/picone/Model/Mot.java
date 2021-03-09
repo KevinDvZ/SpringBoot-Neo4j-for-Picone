@@ -1,30 +1,28 @@
 package fr.simplon.picone.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
+
+import org.neo4j.ogm.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.neo4j.ogm.annotation.Relationship.OUTGOING;
 
-@NodeEntity
+
+//@Node("Word")
+@NodeEntity(label="Word")
 public class Mot {
 
     @Id
+   @GeneratedValue
     private Long id;
 
+    @Property(name="word")
     private String word;
 
-    @Relationship(type="affiche", direction = OUTGOING)
+    @Relationship(type="affiche")
     //@JsonIgnoreProperties("motsSuivants")
     private List<MotSuivant> motsSuivants = new ArrayList<>();
 
-    public Mot() {
-      }
 
     public Long getId() {
         return id;
