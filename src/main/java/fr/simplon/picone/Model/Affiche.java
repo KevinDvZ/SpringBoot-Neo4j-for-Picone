@@ -1,20 +1,25 @@
 package fr.simplon.picone.Model;
 
+
+import org.neo4j.ogm.annotation.*;
+
+@RelationshipEntity(type = "affiche")
 public class Affiche {
 
 
     @Id
     @GeneratedValue
     private Long id;
-    private String title;
-    private String description;
 
-    @Relationship(type = "Affiche", direction = Relationship.INCOMING)
-    private ReportRelationShip reportRelationShip;
-    @Relationship(type = "Belong")
-    private Entity entity;
+    @StartNode
+    Mot mot1;
 
+    @EndNode
+    Mot mot2;
 
+    public Affiche() {
+
+    }
 }
 
-}
+

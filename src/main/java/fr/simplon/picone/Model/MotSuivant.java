@@ -1,25 +1,30 @@
 package fr.simplon.picone.Model;
 
-import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static org.neo4j.ogm.annotation.Relationship.INCOMING;
+import static org.neo4j.ogm.annotation.Relationship.OUTGOING;
+
 @NodeEntity
-public class Icone {
+public class MotSuivant {
 
     @Id @GeneratedValue
     private Long id;
+
     private String word;
 
-    @Relationship(type="affiche", direction= Relationship.INCOMING)
-    private List<Icone> previousIcones;
 
+    @Relationship(type="affiche", direction = INCOMING)
+    private List<Mot> motPrécedent = new ArrayList<>();
 
-    @Relationship(type="affiche", direction = Relationship.OUTGOING)
-    private List<Icone> nextIcones;
+    public MotSuivant() {
+      }
 
     public Long getId() {
         return id;
@@ -37,11 +42,11 @@ public class Icone {
         this.word = word;
     }
 
-    public List<Icone> getNextIcones() {
-        return nextIcones;
+    public List<Mot> getMotPrécedent() {
+        return motPrécedent;
     }
 
-    public void setNextIcones(List<Icone> nextIcones) {
-        this.nextIcones = nextIcones;
+    public void setMotPrécedent(List<Mot> motPrécedent) {
+        this.motPrécedent = motPrécedent;
     }
 }
