@@ -1,7 +1,10 @@
 package fr.simplon.picone.Model;
 
 
-import org.neo4j.ogm.annotation.*;
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +12,12 @@ import java.util.List;
 
 
 //@Node("Word")
-@NodeEntity(label="Word")
+@NodeEntity
 public class Mot {
 
-    @Id
-   @GeneratedValue
+    @Id @GeneratedValue
     private Long id;
 
-    @Property(name="word")
     private String word;
 
     @Relationship(type="affiche")
