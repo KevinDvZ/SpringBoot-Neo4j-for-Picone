@@ -15,7 +15,7 @@ public class MotController{
 
     @CrossOrigin("*")
     @GetMapping("/mots")
-    public List<Mot> findAll(){ return motService.findAll();}
+    public List<Mot> findNodes(){ return motService.findAll();}
 
 
 }

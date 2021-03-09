@@ -1,9 +1,13 @@
 package fr.simplon.picone.Model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.*;
 
 @RelationshipEntity(type = "affiche")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Affiche {
 
 
@@ -17,9 +21,7 @@ public class Affiche {
     @EndNode
     Mot mot2;
 
-    public Affiche() {
 
-    }
 }
 
 

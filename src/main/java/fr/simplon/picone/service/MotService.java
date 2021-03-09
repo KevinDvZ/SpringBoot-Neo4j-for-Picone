@@ -10,10 +10,5 @@ public interface MotService {
 
     List<Mot> findAll();
 
-    Mot find(Long id);
-
-    void delete(Long id);
-
-    Mot createOrUpdate(Mot mot);
 
 }
