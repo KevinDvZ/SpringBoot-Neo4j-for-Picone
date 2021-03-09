@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.neo4j.ogm.exception.core.NotFoundException;
+
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/patient")
@@ -33,8 +35,8 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Patient read(@PathVariable Long id) {
-        return patientRepository.findById(id).orElseThrow(NotFoundException::new);
+    public Optional<Patient> read(@PathVariable Long id) {
+        return patientRepository.findById(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -45,8 +47,7 @@ public class PatientController {
     @Transactional
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Patient update(@PathVariable Long id, @RequestBody Patient update) {
-        final Patient existing = patientRepository.findById(id).orElseThrow(NotFoundException::new);
-        existing.updateFrom(update);
-        return patientRepository.save(existing);
+        final Optional<Patient> existing = patientRepository.findById(id);
+        return patientRepository.save(existing.get());
     }
 }
