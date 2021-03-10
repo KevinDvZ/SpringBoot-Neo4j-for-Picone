@@ -1,4 +1,8 @@
 package fr.simplon.picone.repository;
 
-public interface ResidantRepository {
+
+import fr.simplon.picone.Model.Residant;
+import org.springframework.data.repository.CrudRepository;
+
+public interface ResidantRepository extends CrudRepository<Residant, Long> {
 }
