@@ -28,9 +28,10 @@ public class Mot {
 
     private String word;
 
-    /*
+
     @Relationship(type="affiche")
    private List<Mot> motsSuivants = new ArrayList<>();
-    */
+
+
 
 }
