@@ -20,9 +20,14 @@ public class MotServiceImpl implements MotService{
         return motRepository.findAll();
     }
 
-    @Override
+    /*@Override
     public List<Mot> findByIdTest(Long id) {
         return motRepository.trouverNoeudsEnfants(id);
+    }*/
+
+    @Override
+    public List<Mot> findByIdAndByRelation( Long id, String relation) {
+        return motRepository.trouverNoeudsEnfants(id,relation);
     }
 
     @Override

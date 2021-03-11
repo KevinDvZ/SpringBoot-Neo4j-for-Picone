@@ -11,7 +11,7 @@ public interface MotService {
 
     List<Mot> findNodes();
 
-    List<Mot> findByIdTest(Long id);
+    List<Mot> findByIdAndByRelation(Long id, String relation);
 
     Optional<Mot> findNodesById(Long id);
 }

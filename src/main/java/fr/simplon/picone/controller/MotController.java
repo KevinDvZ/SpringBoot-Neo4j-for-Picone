@@ -27,9 +27,9 @@ public class MotController{
         return motService.findNodesById(id);
     }
 
-    @GetMapping(value = "/mots/{id}/next", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Mot> findNodesByIdTest(@PathVariable Long id){
-        return motService.findByIdTest(id);
+    @GetMapping(value = "/mots/{id}/{relation}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Mot> findByIdAndByRelation(@PathVariable Long id,@PathVariable String relation){
+        return motService.findByIdAndByRelation(id, relation);
     }
 
 }
