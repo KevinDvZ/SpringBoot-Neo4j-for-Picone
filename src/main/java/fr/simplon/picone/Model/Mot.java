@@ -28,6 +28,8 @@ public class Mot {
 
     private String word;
 
+    private String img_url;
+
 
 
 
