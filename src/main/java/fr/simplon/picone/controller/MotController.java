@@ -29,7 +29,7 @@ public class MotController{
 
     @GetMapping(value = "/mots/{id}/{relation}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Mot> findByIdAndByRelation(@PathVariable Long id,@PathVariable String relation){
-        return motService.findByIdAndByRelation(id, relation);
+       return  motService.findByIdAndByRelation(id, relation);
     }
 
 }

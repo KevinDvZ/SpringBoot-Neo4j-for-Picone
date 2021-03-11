@@ -15,24 +15,27 @@ public class MotServiceImpl implements MotService{
     @Autowired
     private MotRepository motRepository;
 
+    // concaténer https://niveaubonus.fr/picone/src/icones/
+    // variable d'environnement ? ${NEO4J_PASSWORD}
+
     @Override
     public List<Mot> findNodes() {
-        return motRepository.findAll();
-    }
 
-    /*@Override
-    public List<Mot> findByIdTest(Long id) {
-        return motRepository.trouverNoeudsEnfants(id);
-    }*/
+        List<Mot> listeMots = motRepository.findAll();
+        System.out.println(listeMots);
+        return listeMots;
 
-    @Override
-    public List<Mot> findByIdAndByRelation( Long id, String relation) {
-        return motRepository.trouverNoeudsEnfants(id,relation);
     }
 
     @Override
     public Optional<Mot> findNodesById(Long id) {
         return motRepository.findById(id);
     }
+
+    @Override
+    public List<Mot> findByIdAndByRelation( Long id, String relation) {
+        return motRepository.trouverNoeudsEnfants(id,relation);
+    }
+
 
 }
