@@ -14,4 +14,5 @@ public interface MotService {
     List<Mot> findByIdTest(Long id);
 
     Optional<Mot> findNodesById(Long id);
+
 }

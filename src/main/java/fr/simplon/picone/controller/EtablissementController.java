@@ -21,5 +21,11 @@ public class EtablissementController {
         return etablissementService.returnAllEtablissement();
     }
 
+    @GetMapping(value = "/etablissements/patients", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Etablissement> returnPatients() {
+        return etablissementService.returnPatientsByEtablissement();
+    }
+
+
 
 }

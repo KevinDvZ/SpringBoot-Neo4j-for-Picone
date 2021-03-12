@@ -26,12 +26,14 @@ public class Mot {
     @GeneratedValue
     private Long id;
 
+    
     private String word;
 
 
+    /*
     @Relationship(type="affiche")
    private List<Mot> motsSuivants = new ArrayList<>();
-
+*/
 
 
 }

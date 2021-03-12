@@ -10,7 +10,7 @@ import java.util.List;
 public interface EtablissementRepository extends Neo4jRepository<Etablissement, Long> {
 
     @Query("MATCH (n:Etablissement)-[:Résidant]->(m:Patient) RETURN n")
-    List<Patient> returnPatientByEtablissement();
+    List<Etablissement> returnPatientByEtablissement();
 
 
 }

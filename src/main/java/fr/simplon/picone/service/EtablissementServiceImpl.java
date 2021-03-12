@@ -1,7 +1,6 @@
 package fr.simplon.picone.service;
 
 import fr.simplon.picone.Model.Etablissement;
-import fr.simplon.picone.Model.Patient;
 import fr.simplon.picone.repository.EtablissementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class EtablissementServiceImpl implements EtablissementService{
     }
 
     @Override
-    public List<Patient> returnPatientsByEtablissement() {
+    public List<Etablissement> returnPatientsByEtablissement() {
         return etablissementRepository.returnPatientByEtablissement();
 
     }
