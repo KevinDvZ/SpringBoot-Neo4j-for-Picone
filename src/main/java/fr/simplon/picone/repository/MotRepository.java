@@ -12,8 +12,8 @@ import java.util.List;
 public interface MotRepository extends Neo4jRepository<Mot, Long> {
 
 
-    @Query("MATCH (w:Word)-[:affiche]->(m:Word) WHERE id(w)= $id return m")
-   List<Mot> trouverNoeudsEnfants(@Param("id") Long id);
+    @Query("MATCH (w:Word)-[$:relation]->(m:Word) WHERE id(w)= $id return m")
+    List<Mot> trouverNoeudsEnfants(@Param("relation") String relation, @Param("id") Long id);
 
 
     //Mot findById(Long id);

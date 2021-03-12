@@ -22,7 +22,7 @@ public class MotServiceImpl implements MotService{
 
     @Override
     public List<Mot> findByIdTest(Long id) {
-        return motRepository.trouverNoeudsEnfants(id);
+        return motRepository.trouverNoeudsEnfants("affiche", id);
     }
 
     @Override
