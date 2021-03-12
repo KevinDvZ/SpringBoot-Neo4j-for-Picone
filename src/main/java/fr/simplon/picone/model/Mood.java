@@ -1,39 +1,26 @@
-package fr.simplon.picone.Model;
-
+package fr.simplon.picone.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
-import org.springframework.data.neo4j.core.schema.Relationship;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
-
-
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.data.neo4j.core.schema.Property;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Node("Word")
-public class Mot {
+@Node("Mood")
+public class Mood {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    
     private String word;
 
-
-    /*
-    @Relationship(type="affiche")
-   private List<Mot> motsSuivants = new ArrayList<>();
-*/
-
+    @Property("img_url")
+    private String imgUrl;
 
 }

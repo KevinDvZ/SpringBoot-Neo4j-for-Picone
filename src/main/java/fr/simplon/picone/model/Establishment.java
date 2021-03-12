@@ -1,4 +1,4 @@
-package fr.simplon.picone.Model;
+package fr.simplon.picone.model;
 
 
 import lombok.AllArgsConstructor;
@@ -6,13 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.schema.*;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Node("Etablissement")
-public class Etablissement {
+public class Establishment {
 
     @Id
     @GeneratedValue
