@@ -12,27 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
-public class MotController{
+public class WordController {
 
     @Autowired
-    MotService motService;
+    WordService wordService;
 
     @CrossOrigin("*")
     @GetMapping("/mots")
-    public List<Mot> findNodes(){ return motService.findNodes();}
+    public List<Word> findNodes(){ return wordService.findNodes();}
 
     @CrossOrigin("*")
     @GetMapping(value = "/mots/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<Mot> findNodesById(@PathVariable Long id){
-        return motService.findNodesById(id);
+    public Optional<Word> findNodesById(@PathVariable Long id){
+        return wordService.findNodesById(id);
     }
 
-    @CrossOrigin("*")
-    @GetMapping(value = "/mots/{id}/{relation}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Mot> findByIdAndByRelation(@PathVariable Long id,@PathVariable String relation){
-       return  motService.findByIdAndByRelation(id, relation);
+    @GetMapping(value = "/mots/{id}/next", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Word> findNodesByIdTest(@PathVariable Long id){
+        return wordService.findByIdTest(id);
     }
 
 }
