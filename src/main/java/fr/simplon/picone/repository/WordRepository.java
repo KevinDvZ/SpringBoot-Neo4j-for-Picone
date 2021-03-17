@@ -11,9 +11,7 @@ import java.util.List;
 public interface WordRepository extends Neo4jRepository<Word, Long> {
 
 
-    @Query("MATCH (w:Word)-[$:relation]->(m:Word) WHERE id(w)= $id return m")
+    @Query("MATCH (w:Word)-[r]->(m:Word) WHERE id(w)= $id  AND type(r)= $relation return m")
     List<Word> findChildNodes(@Param("relation") String relation, @Param("id") Long id);
 
-
-    //Mot findById(Long id);
 }

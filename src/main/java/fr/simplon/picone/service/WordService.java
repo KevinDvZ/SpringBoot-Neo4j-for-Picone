@@ -11,8 +11,7 @@ public interface WordService {
 
     List<Word> findNodes();
 
-    List<Word> findByIdTest(Long id);
-
     Optional<Word> findNodesById(Long id);
 
+    List<Word> findByIdAndByRelation(Long id, String relation);
 }

@@ -1,7 +1,7 @@
 package fr.simplon.picone.controller;
 
-import fr.simplon.picone.Model.Mot;
-import fr.simplon.picone.service.MotService;
+import fr.simplon.picone.model.Word;
+import fr.simplon.picone.service.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +20,9 @@ public class WordController {
 
     @CrossOrigin("*")
     @GetMapping("/mots")
-    public List<Word> findNodes(){ return wordService.findNodes();}
+    public List<Word> findNodes(){
+        return wordService.findNodes();
+    }
 
     @CrossOrigin("*")
     @GetMapping(value = "/mots/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -28,9 +30,10 @@ public class WordController {
         return wordService.findNodesById(id);
     }
 
-    @GetMapping(value = "/mots/{id}/next", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Word> findNodesByIdTest(@PathVariable Long id){
-        return wordService.findByIdTest(id);
+    @CrossOrigin("*")
+    @GetMapping(value = "/mots/{id}/{relation}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Word> findNodesByIdAndRelation(@PathVariable Long id, @PathVariable String relation){
+        return wordService.findByIdAndByRelation(id, relation);
     }
 
 }

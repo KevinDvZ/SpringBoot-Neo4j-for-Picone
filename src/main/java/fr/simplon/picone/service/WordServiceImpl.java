@@ -21,13 +21,13 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
-    public List<Word> findByIdTest(Long id) {
-        return wordRepository.findChildNodes("affiche", id);
+    public Optional<Word> findNodesById(Long id) {
+        return wordRepository.findById(id);
     }
 
     @Override
-    public Optional<Word> findNodesById(Long id) {
-        return wordRepository.findById(id);
+    public List<Word> findByIdAndByRelation( Long id, String relation) {
+        return wordRepository.findChildNodes(relation, id);
     }
 
 }

@@ -1,4 +1,4 @@
-package fr.simplon.picone.Model;
+package fr.simplon.picone.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
