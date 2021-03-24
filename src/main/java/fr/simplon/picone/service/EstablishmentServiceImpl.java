@@ -14,13 +14,17 @@ public class EstablishmentServiceImpl implements EstablishmentService {
     EstablishmentRepository establishmentRepository;
 
     @Override
-    public List<Establishment> returnAllEtablissement() {
+    public List<Establishment> returnAllEstablishment() {
        return establishmentRepository.findAll();
     }
 
     @Override
-    public List<Establishment> returnPatientsByEtablissement() {
-        return establishmentRepository.returnPatientByEtablissement();
+    public List<Establishment> returnEstablishmentByEstablishment() {
+        return establishmentRepository.returnEstablishmentByEstablishment();
 
     }
+    @Override
+public Establishment returnAddEstablishmentByEstablishment(Establishment establishment){
+        return establishmentRepository.save(establishment);
+    };
 }

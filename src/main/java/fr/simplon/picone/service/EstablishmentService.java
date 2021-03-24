@@ -8,6 +8,7 @@ import java.util.List;
 @Service
 public interface EstablishmentService {
 
-    List<Establishment> returnAllEtablissement();
-    List<Establishment> returnPatientsByEtablissement();
+    List<Establishment> returnAllEstablishment();
+    List<Establishment> returnEstablishmentByEstablishment();
+    Establishment returnAddEstablishmentByEstablishment (Establishment establishment);
 }

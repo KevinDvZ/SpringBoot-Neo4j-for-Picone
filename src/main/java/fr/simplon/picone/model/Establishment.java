@@ -15,12 +15,17 @@ public class Establishment {
     private Long id;
 
     private String name;
+    private String password;
+    private String address;
+    private String postalCode;
+    private String city;
+    private String phone;
     private String word;
 
 
     /*
-    @Relationship(type="Résidant")
-    private List<Patient> patients;
+    @Relationship(type="liste")
+    private List<Establishment> establishments;
     */
 
     public Establishment() {
