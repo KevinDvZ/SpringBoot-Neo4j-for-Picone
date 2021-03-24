@@ -14,4 +14,5 @@ public interface WordService {
     Optional<Word> findNodesById(Long id);
 
     List<Word> findByIdAndByRelation(Long id, String relation);
+
 }
