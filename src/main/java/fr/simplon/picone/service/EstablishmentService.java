@@ -11,4 +11,5 @@ public interface EstablishmentService {
     List<Establishment> returnAllEstablishment();
     List<Establishment> returnEstablishmentByEstablishment();
     Establishment returnAddEstablishmentByEstablishment (Establishment establishment);
+    Establishment returnDeleteEstablishmentByEstablishment (Establishment establishment);
 }

@@ -4,10 +4,7 @@ import fr.simplon.picone.model.Establishment;
 import fr.simplon.picone.service.EstablishmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,16 @@ public class EstablishmentController {
 @PostMapping( value= "/addEstablishment/",produces = MediaType.APPLICATION_JSON_VALUE )
 public Establishment returnAddEstablishment(@RequestBody Establishment establishment) {
     return establishmentService.returnAddEstablishmentByEstablishment(establishment);
-}}
+}
+
+    @DeleteMapping Mapping(value= "/deleteEstablishment/", produces = MediaType.APPLICATION_JSON_VALUE )
+    public Establishment returnDeleteEstablishment(@RequestBody Establishment establishment) {
+        return establishmentService.returnDeleteEstablishmentByEstablishment(establishment);
+    }
+
+
+
+
+}
 
 
