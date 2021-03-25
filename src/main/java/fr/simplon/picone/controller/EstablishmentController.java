@@ -28,7 +28,7 @@ public Establishment returnAddEstablishment(@RequestBody Establishment establish
     return establishmentService.returnAddEstablishmentByEstablishment(establishment);
 }
 
-    @DeleteMapping Mapping(value= "/deleteEstablishment/", produces = MediaType.APPLICATION_JSON_VALUE )
+    @DeleteMapping (value= "/deleteEstablishment/" ,produces = MediaType.APPLICATION_JSON_VALUE )
     public Establishment returnDeleteEstablishment(@RequestBody Establishment establishment) {
         return establishmentService.returnDeleteEstablishmentByEstablishment(establishment);
     }
