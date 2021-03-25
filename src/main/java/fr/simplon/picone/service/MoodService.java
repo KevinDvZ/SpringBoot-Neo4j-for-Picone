@@ -14,4 +14,3 @@ public interface MoodService {
         Optional<Mood> findNodesById(Long id);
 
     }
-

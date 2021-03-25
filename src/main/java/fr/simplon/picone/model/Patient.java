@@ -9,7 +9,7 @@ import org.springframework.data.neo4j.core.schema.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Node("Patient")
 
 public class Patient{
 
@@ -27,7 +27,7 @@ public class Patient{
 
         /*@Relationship(type="liste")
         private List<Patient> patients ;*/
-        }
+ }
 
 
 

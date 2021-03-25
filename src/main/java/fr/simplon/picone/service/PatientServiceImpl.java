@@ -7,28 +7,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PatientServiceImpl implements PatientService {
 
 
     @Autowired
-    private PatientRepository patientRepository;
+    PatientRepository patientRepository;
 
     @Override
-    public List<Patient> findNodes() {
-        return patientRepository.findAll();
+    public List<Patient> returnAllPatient() {
+       return patientRepository.findAll();
     }
 
     @Override
-    public Optional<Patient> findNodesById(Long id) {
-        return patientRepository.findById(id);
+    public List<Patient> returnPatientByPatient() {
+        return patientRepository.returnPatientByPatient();
     }
 
     @Override
-    public List<Patient> findByIdAndByRelation( Long id, String relation) {
-        return patientRepository.findChildNodes(relation, id);
-    }
-
+    public Patient returnAddPatientByPatient(Patient patient){
+        return patientRepository.save(patient);
+    };
 }
