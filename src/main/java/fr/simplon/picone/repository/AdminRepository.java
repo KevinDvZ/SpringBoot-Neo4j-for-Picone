@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface AdminRepository extends Neo4jRepository<Patient, Long> {
+public interface AdminRepository extends Neo4jRepository<Admin, Long> {
 
 
     @Query("MATCH (w:Admin)-[r]->(m:Patient) WHERE id(w)= $id  AND type(r)= $relation return m")

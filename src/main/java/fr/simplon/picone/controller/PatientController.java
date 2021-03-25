@@ -4,10 +4,8 @@ import fr.simplon.picone.model.Patient;
 import fr.simplon.picone.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -29,6 +27,16 @@ public class PatientController {
 
     @PostMapping(value = "/addPatient/", produces = MediaType.APPLICATION_JSON_VALUE)
     public Patient returnAddPatient (@RequestBody Patient patient){
-            return patientService.returnAddPatientByPatient(patient);
+        return patientService.returnAddPatient(patient);
+    }
+
+    @PutMapping(value = "/updatePatient/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Patient returnUpdatePatient (@RequestBody Patient patient) {
+        return patientService.returnUpdatePatient(patient);
+    }
+
+    @DeleteMapping(value = "/deletePatient/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public void returnDeletePatient (@RequestBody Patient patient){
+        patientService.returnDeletePatient(patient);
     }
 }

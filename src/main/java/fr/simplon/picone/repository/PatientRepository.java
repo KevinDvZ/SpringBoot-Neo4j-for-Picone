@@ -10,7 +10,7 @@ public interface PatientRepository extends Neo4jRepository<Patient, Long> {
 
     @Query ("MATCH (n:admin) CREATE (m:patient{ (n)-[r:Patient]->lastName:'', name:'', email:'', password:'', image:''}) RETURN *")
 
-    Patient returnAddPatientByPatient (Patient patient);
+    Patient returnAddPatient (Patient patient);
 
     @Query ("MATCH (n:patient) return n")
     List<Patient> returnPatientByPatient();

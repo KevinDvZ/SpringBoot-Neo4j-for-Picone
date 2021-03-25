@@ -1,7 +1,8 @@
 package fr.simplon.picone.service;
 
 import fr.simplon.picone.model.Admin;
-import org.springframework.stereotype.Admin;
+import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;

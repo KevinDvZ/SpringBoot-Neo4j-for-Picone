@@ -10,6 +10,9 @@ import java.util.List;
 public interface PatientService {
     List<Patient> returnAllPatient();
     List<Patient> returnPatientByPatient();
-    Patient returnAddPatientByPatient (Patient patient);
+    Patient returnAddPatient (Patient patient);
+    Patient returnUpdatePatient (Patient patient);
+    void returnDeletePatient(Patient patient);
+
 }
 
