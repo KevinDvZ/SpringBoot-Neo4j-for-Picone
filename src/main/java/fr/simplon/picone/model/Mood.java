@@ -1,16 +1,11 @@
 package fr.simplon.picone.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Node("Mood")
 public class Mood {
 
@@ -23,4 +18,36 @@ public class Mood {
     @Property("img_url")
     private String imgUrl;
 
+    public Mood() {
+    }
+
+    public Mood(Long id, String word, String imgUrl) {
+        this.id = id;
+        this.word = word;
+        this.imgUrl = imgUrl;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 }
