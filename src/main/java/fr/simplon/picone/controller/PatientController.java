@@ -2,6 +2,7 @@ package fr.simplon.picone.controller;
 
 import fr.simplon.picone.model.Patient;
 import fr.simplon.picone.service.PatientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,9 @@ import java.util.List;
 
 @RestController
 public class PatientController {
+
+    @Autowired
+    PatientService patientService;
 
     @GetMapping(value = "/patients", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Patient> returnAllPatient() {
