@@ -26,13 +26,5 @@ public interface EstablishmentRepository extends Neo4jRepository<Establishment, 
 
 
 
-    /*@Query("MATCH m:Establishment { name:'', password:'', address:'', postalCode:'', city:'',phone:''})
-            SET m.name:''= name('') and m.password:''and m.address:''and m.postalCode:''and m.city:''and m.phone:''
 
-    public void putEstablishment(@Param("id") Long id);
-
-
-}  MATCH (p:Person {name: 'Jennifer'})
-        SET p.birthdate = date('1980-01-01')
-        RETURN p*/
 }

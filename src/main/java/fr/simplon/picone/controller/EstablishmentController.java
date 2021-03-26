@@ -44,11 +44,6 @@ public class EstablishmentController {
 }
     }
 
-  /*  @PutMapping (value= "/deleteEstablishment/" ,produces = MediaType.APPLICATION_JSON_VALUE )
-    public Establishment returnPutEstablishment(@RequestBody Establishment establishment) {
-        return establishmentService.returnDeleteEstablishmentByEstablishment(establishment);
-    }
-*/
 
 
 
