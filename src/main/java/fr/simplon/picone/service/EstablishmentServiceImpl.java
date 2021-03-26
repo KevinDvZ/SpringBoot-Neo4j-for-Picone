@@ -26,9 +26,17 @@ public class EstablishmentServiceImpl implements EstablishmentService {
     @Override
 public Establishment returnAddEstablishmentByEstablishment(Establishment establishment){
         return establishmentRepository.save(establishment);
-    };
+    }
     @Override
-    public Establishment returnDeleteEstablishmentByEstablishment(Establishment establishment){
+    public void deleteEstablishment (long id){
+        establishmentRepository.deleteById(id);
+
+
+}
+    @Override
+    public Establishment returnUpdateEstablishmentByEstablishment(Establishment establishment) {
         return establishmentRepository.save(establishment);
-    };
+
+    }
+
 }

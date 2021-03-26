@@ -1,7 +1,10 @@
 package fr.simplon.picone.service;
 
 import fr.simplon.picone.model.Establishment;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -11,5 +14,7 @@ public interface EstablishmentService {
     List<Establishment> returnAllEstablishment();
     List<Establishment> returnEstablishmentByEstablishment();
     Establishment returnAddEstablishmentByEstablishment (Establishment establishment);
-    Establishment returnDeleteEstablishmentByEstablishment (Establishment establishment);
+    void deleteEstablishment (long id) ;
+    Establishment returnUpdateEstablishmentByEstablishment (Establishment establishment);
+
 }
