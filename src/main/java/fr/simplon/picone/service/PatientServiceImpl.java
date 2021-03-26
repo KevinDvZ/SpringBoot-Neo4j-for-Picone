@@ -16,27 +16,27 @@ public class PatientServiceImpl implements PatientService {
     PatientRepository patientRepository;
 
     @Override
-    public List<Patient> returnAllPatient() {
+    public List<Patient> getAllPatients() {
        return patientRepository.findAll();
     }
 
     @Override
-    public List<Patient> returnPatientByPatient() {
-        return patientRepository.returnPatientByPatient();
+    public Patient findPatientById(Long id) {
+        return patientRepository.findPatientById(id);
     }
 
     @Override
-    public Patient returnAddPatient(Patient patient){
+    public Patient addPatient(Patient patient){
         return patientRepository.save(patient);
     }
 
     @Override
-    public Patient returnUpdatePatient (Patient patient) {
+    public Patient updatePatient (Patient patient) {
         return patientRepository.save(patient);
     }
 
     @Override
-    public void returnDeletePatient(Patient patient) {
-        patientRepository.delete(patient);
+    public void deletePatient(Long id) {
+        patientRepository.deleteById(id);
     }
 }
