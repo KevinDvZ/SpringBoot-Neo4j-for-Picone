@@ -12,8 +12,8 @@ public interface EstablishmentRepository extends Neo4jRepository<Establishment, 
     @Query("MATCH (n:admin) CREATE (m:establishment{ name:'', password:'', address:'', postalCode:'', city:'',phone:'')<-[r:Establissment]-(n) RETURN *")
     Establishment returnAddEstablishmentByEstablishment(Establishment establishment);
 
-    @Query("MATCH (n:establishment) return n")
-    List<Establishment> returnEstablishmentByEstablishment();
+   // @Query("MATCH (n:establishment) return n")
+   // List<Establishment> returnEstablishmentByEstablishment();
 
     @Query("START u = node({id}) OPTIONAL MATCH u-[r]-() DELETE u,r")
     public void deleteEstablishment(Long id);

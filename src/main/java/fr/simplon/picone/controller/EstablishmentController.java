@@ -10,34 +10,38 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+@CrossOrigin(origins = "http://localhost:8080")
 
 @RestController
-public class EstablishmentController {
 
+public class EstablishmentController {
+   
     @Autowired
     EstablishmentServiceImpl establishmentImpl;
 
-    @GetMapping(value = "/establishment", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin("*")
+    @GetMapping(value = "/establishments", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Establishment> returnAllEstablishment() {
         return establishmentImpl.returnAllEstablishment();
     }
 
-    @GetMapping(value = "/establishment/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin("*")
+    @GetMapping(value = "/establishments/", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Establishment> returnEstablishment() {
-        return establishmentImpl.returnEstablishmentByEstablishment();
+        return establishmentImpl.returnAllEstablishment();
     }
-
-    @PostMapping(value = "/addEstablishment", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin("*")
+    @PostMapping(value = "/establishments", produces = MediaType.APPLICATION_JSON_VALUE)
     public Establishment returnAddEstablishment(@RequestBody Establishment establishment) {
         return establishmentImpl.returnAddEstablishmentByEstablishment(establishment);
     }
-
-    @DeleteMapping(value = "/deleteEstablishment/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin("*")
+    @DeleteMapping(value = "/establishments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void returnDeleteEstablishment(@PathVariable(value = "id") long id) {
         establishmentImpl.deleteEstablishment(id);
     }
-
-    @PutMapping(value ="/updateEstablishment/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin("*")
+    @PutMapping(value ="/establishments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Establishment UpdateEstablishment(@RequestBody Establishment establishment) {
         return establishmentImpl.returnUpdateEstablishmentByEstablishment(establishment);
 

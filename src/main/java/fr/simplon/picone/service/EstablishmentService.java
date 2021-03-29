@@ -12,7 +12,7 @@ import java.util.List;
 public interface EstablishmentService {
 
     List<Establishment> returnAllEstablishment();
-    List<Establishment> returnEstablishmentByEstablishment();
+
     Establishment returnAddEstablishmentByEstablishment (Establishment establishment);
     void deleteEstablishment (long id) ;
     Establishment returnUpdateEstablishmentByEstablishment (Establishment establishment);

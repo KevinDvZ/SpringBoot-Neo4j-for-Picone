@@ -18,11 +18,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
        return establishmentRepository.findAll();
     }
 
-    @Override
-    public List<Establishment> returnEstablishmentByEstablishment() {
-        return establishmentRepository.returnEstablishmentByEstablishment();
 
-    }
     @Override
 public Establishment returnAddEstablishmentByEstablishment(Establishment establishment){
         return establishmentRepository.save(establishment);
