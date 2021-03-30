@@ -29,7 +29,7 @@ public class WordServiceTest {
 
     @BeforeEach
     public void init() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
 
 
@@ -78,29 +78,32 @@ public class WordServiceTest {
 
     }*/
 
-/*
-    //////PROBLEME DE LONG A REGLER//////
 
     @DisplayName("find icon by id")
     @Test
     public void findByIdTest() {
 
         //GIVEN
-        Long idWord = 14;
-        Optional<Word> inputWord = Optional.of(new Word(14,"T-Shirt","tShirt.png"));
-        inputWord.get().setId(idWord);
-        when(service.findNodesById(idWord)).thenReturn(inputWord);
+        long idWord = 157;
+        List<Word> inputWord = new ArrayList<>();
+        String relation = "besoin_vestimentaire";
+        inputWord.add(new Word(156L, "Chapeau", "chapeau.png"));
+        inputWord.add(new Word(157L, "Gants", "gants.png"));
+        inputWord.add(new Word(158L, "Bonnet", "bonnet.png"));
+        when(repository.findChildNodes(relation, idWord)).thenReturn(inputWord);
 
         //WHEN
-        Optional<Word> outputWord = service.findNodesById(idWord);
-        Word word = outputWord.get();
+        List<Word> outputWord = service.findByIdAndByRelation(idWord,relation);
+
 
         //THEN
-        assertThat(word.getId()).isEqualTo(idWord);
-        assertThat(word.getWord()).isEqualTo("T-Shirt");
+        assertThat(outputWord).hasSize(3);
+        Word word = outputWord.get(1);
+        assertThat(word.getWord()).isEqualTo("Gants");
 
     }
-*/
+
+
 /*
     //////A TERMINER UNE FOIS QUE LA REQUETE POST SERA CREEE//////
 
