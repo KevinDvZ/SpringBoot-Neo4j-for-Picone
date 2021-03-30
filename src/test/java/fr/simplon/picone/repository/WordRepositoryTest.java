@@ -1,4 +1,4 @@
-/*package fr.simplon.picone.repository;
+package fr.simplon.picone.repository;
 
 import fr.simplon.picone.model.Word;
 import org.junit.jupiter.api.DisplayName;
@@ -28,11 +28,11 @@ public class WordRepositoryTest {
     public void findChildNodes() {
 
         //GIVEN
-        Word wordBoire = new Word(66, "Boire","boire.png");
+        Word wordBoire = new Word(66L, "Boire","boire.png");
         entityManager.persist(wordBoire);
 
         //WHEN
-        List<Word> wordSelect = repository.findChildNodes("boire", 24);
+        List<Word> wordSelect = repository.findChildNodes("boire", 24L);
 
         //THEN
         assertThat(wordSelect.size()).isEqualTo(1);
@@ -40,5 +40,5 @@ public class WordRepositoryTest {
     }
 
 }
-*/
+
 
