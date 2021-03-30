@@ -1,4 +1,4 @@
-package fr.simplon.picone.controller;
+/*package fr.simplon.picone.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.simplon.picone.model.Word;
@@ -76,7 +76,7 @@ public class WordControllerTest {
                 //THEN l'attribut "imgUrl" a pour valeur "tShirt.png"
                 .andExpect(jsonPath("$.imgUrl").value("tShirt.png"));
 
-    }
+    }*/
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                       A MODIFIER UNE FOIS LES REQUETES CONTROLLER EFFECTUEES
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -177,4 +177,4 @@ public class WordControllerTest {
                 .andExpect(status().is2xxSuccessful());
     }*/
 
-}
+//}
