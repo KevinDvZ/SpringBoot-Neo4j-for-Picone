@@ -9,17 +9,17 @@ public class Patient{
         @GeneratedValue
         private Long id;
         private String lastName;
-        private String name;
+        private String firstName;
         private String email;
         private String password;
 
         @Property("image")
         private String image;
 
-        public Patient (Long id, String lastName, String name,  String email, String password, String image) {
+        public Patient (Long id, String lastName, String firstName,  String email, String password, String image) {
         this.id = id;
         this.lastName = lastName;
-        this.name = name;
+        this.firstName = firstName;
         this.email = email;
         this.password = password;
         this.image = image;
@@ -30,49 +30,30 @@ public class Patient{
                 return id;
         }
 
-        public void setId(Long id) {
-                this.id = id;
-        }
-
         public String getLastName() {
                 return lastName;
         }
 
-        public void setLastName(String lastName) {
-                this.lastName = lastName;
-        }
+        public String getFirstName() { return firstName; }
 
-        public String getName() {
-                return name;
-        }
+        public String getEmail() { return email;}
 
-        public void setName(String name) {
-                this.name = name;
-        }
+        public String getPassword() { return password;}
 
-        public String getEmail() {
-                return email;
-        }
+        public String getImage() { return image; }
 
-        public void setEmail(String email) {
-                this.email = email;
-        }
 
-        public String getPassword() {
-                return password;
-        }
+        public void setId(Long id) {this.id = id;}
 
-        public void setPassword(String password) {
-                this.password = password;
-        }
+        public void setFirstName(String firstName) { this.firstName = firstName; }
 
-        public String getImage() {
-                return image;
-        }
+        public void setLastName(String lastName) { this.lastName = lastName;}
 
-        public void setImage(String image) {
-                this.image = image;
-        }
+        public void setEmail(String email) { this.email = email;}
+
+        public void setPassword(String password) { this.password = password;}
+
+        public void setImage(String image) { this.image = image; }
 
 }
 

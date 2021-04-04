@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public interface PatientService {
-    List<Patient> getAllPatients();
+    List<Patient> findAll();
     Patient findPatientById(Long id);
     Patient addPatient (Patient patient);
     Patient updatePatient (Patient patient);

@@ -9,17 +9,17 @@ import org.springframework.data.repository.query.Param;
 public interface PatientRepository extends Neo4jRepository<Patient, Long> {
 
 
-    @Query("MATCH (n:admin) CREATE (m:patient{ lastName:'', name:'', email:'', password:'', image:''} )<-[r:Patient]-(n) RETURN *")
-    Patient addPatient(Patient patient);
+    @Query("CREATE (m:Patient{ lastName: :patientParam.lastName, firstName: :patientParam.firstName, email: :patientParam.email, password: :patientParam.password, image: :patientParam.image} )")
+    Patient addPatient(@Param("patientParam")Patient patient);
 
-    @Query("MATCH (n:patient) return n")
+    @Query("MATCH (n:Patient) return n")
     Patient findPatientById(Long id);
 
-    @Query("START u = node({id}) OPTIONAL MATCH u-[r]-() DELETE u,r")
+    @Query("START n = node({id}) OPTIONAL MATCH n-[r]-() DELETE n,r")
      void deletePatient(Long id);
 
-    @Query ("updatePatient p set p.name = :name where p.id = :id")
+    @Query ("updatePatient n set n.lastName = :lastName where n.id = :id")
     @Modifying
-    public Long updateName(@Param("name")String name, @Param("id") Long id);
+    public Long updateLastName(@Param("lastName")String lastName, @Param("id") Long id);
 
 }
