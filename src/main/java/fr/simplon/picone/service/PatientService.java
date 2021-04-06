@@ -10,7 +10,7 @@ import java.util.List;
 public interface PatientService {
     List<Patient> findAll();
     Patient findPatientById(Long id);
-    Patient addPatient (Patient patient);
+    Patient addPatient (Patient patient, Long idEstablishment) throws InterruptedException;
     Patient updatePatient (Patient patient);
     void deletePatient(Long id);
 

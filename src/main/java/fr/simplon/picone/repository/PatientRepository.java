@@ -16,7 +16,7 @@ public interface PatientRepository extends Neo4jRepository<Patient, Long> {
     @Query("CREATE (m:Patient{ lastName: :patientParam.lastName, firstName: :patientParam.firstName, email: :patientParam.email, password: :patientParam.password, image: :patientParam.image} )")
     Patient addPatient(@Param("patientParam")Patient patient);
 
-    @Query("MATCH (n:Patient) return n")
+    @Query("MATCH (n:Patient) where id(n)=$id return n")
     Patient findPatientById(Long id);
 
     @Query("START n = node({id}) OPTIONAL MATCH n-[r]-() DELETE n,r")
