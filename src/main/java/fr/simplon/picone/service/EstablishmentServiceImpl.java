@@ -18,6 +18,9 @@ public class EstablishmentServiceImpl implements EstablishmentService {
        return establishmentRepository.findAll();
     }
 
+    @Override
+    public Establishment findEstablishmentById(Long id) { return establishmentRepository.findEstablishmentById(id); }
+
 
     @Override
 public Establishment returnAddEstablishmentByEstablishment(Establishment establishment){

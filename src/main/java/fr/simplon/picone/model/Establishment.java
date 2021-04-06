@@ -5,6 +5,8 @@ package fr.simplon.picone.model;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.springframework.data.neo4j.core.schema.*;
 
+import java.util.Set;
+
 
 @Node ("Establishment")
 public class Establishment {
@@ -15,29 +17,26 @@ public class Establishment {
 
     private String name;
     private String email;
-    private String password;
+
     private String address;
     private String postalCode;
     private String city;
     private String phone;
     private String word;
 
-   /* @RelatedTo(direction=Direction.BOTH, type="liste")
+    @Relationship(type = "liste", direction = Relationship.Direction.OUTGOING)
     private Set<Patient> patients;
 
-    @Relationship(type="liste")
-    private List<Establishment> establishments;
-    */
 
     public Establishment() {
     }
 
-    public Establishment(Long id, String name, String email,String password,String address, String postalCode,
+    public Establishment(Long id, String name, String email,String address, String postalCode,
     String city, String phone) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password=password;
+
         this.address=address;
         this.postalCode=postalCode;
         this.city=city;
@@ -95,12 +94,12 @@ public class Establishment {
         this.city = city;
     }
 
-    public String getPassword() {
-        return password;
+    public Set<Patient> getPatients() {
+        return patients;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPatients(Set<Patient> patients) {
+        this.patients = patients;
     }
 
     public String getPhone() {

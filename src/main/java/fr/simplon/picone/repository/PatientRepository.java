@@ -1,9 +1,13 @@
 package fr.simplon.picone.repository;
 
+import fr.simplon.picone.model.Admin;
 import fr.simplon.picone.model.Patient;
+import fr.simplon.picone.model.Word;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 
 public interface PatientRepository extends Neo4jRepository<Patient, Long> {
@@ -21,5 +25,8 @@ public interface PatientRepository extends Neo4jRepository<Patient, Long> {
     @Query ("updatePatient n set n.lastName = :lastName where n.id = :id")
     @Modifying
     public Long updateLastName(@Param("lastName")String lastName, @Param("id") Long id);
+
+    //@Query("MATCH (w:Establishment)-[r]->(m:Patient) WHERE id(w)= $id  AND type(r)= $relation return m")
+    //List<Admin> findChildNodes(@Param("relation") String relation, @Param("id") Long id);
 
 }

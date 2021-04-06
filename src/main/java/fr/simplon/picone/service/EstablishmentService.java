@@ -11,8 +11,11 @@ import java.util.List;
 @Service
 public interface EstablishmentService {
 
-    List<Establishment> returnAllEstablishment();
 
+
+
+    List<Establishment> returnAllEstablishment();
+    Establishment findEstablishmentById(Long id);
     Establishment returnAddEstablishmentByEstablishment (Establishment establishment);
     void deleteEstablishment (long id) ;
     Establishment returnUpdateEstablishmentByEstablishment (Establishment establishment);
