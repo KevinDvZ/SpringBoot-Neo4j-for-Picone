@@ -27,6 +27,8 @@ public class WordRepositoryTest {
     @Test
     public void findChildNodes() {
 
+        ///////////////////A RETAPER!!!!!!!!!!!!!!!/////////////////////////////////////
+
         //GIVEN
         Word wordBoire = new Word(66L, "Boire","boire.png");
         entityManager.persist(wordBoire);
