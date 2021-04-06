@@ -33,28 +33,27 @@ public class WordServiceTest {
     }
 
 
-/*  /////A TERMINER UNE FOIS QUE LA REQUETE POST SERA CREEE//////
+
 
     @DisplayName("find all icons")
     @Test
     public void findAllTest() {
         //GIVEN
-        List<Word> inputWords = new ArrayList<>();
-
-        //////A TERMINER UNE FOIS QUE LA REQUETE POST SERA CREEE//////
-        inputWords.add(new Word("Gaston","mybio",5));
-        inputWords.add(new Word("Marguerite","Il était une fois",3));
-        inputWords.add(new Word("Marie","la petite maison",3));
-        when(repository.findAll()).thenReturn(inputWords);
+        List<Word> inputWord = new ArrayList<>();
+        inputWord.add(new Word(156L, "Chapeau", "chapeau.png"));
+        inputWord.add(new Word(157L, "Gants", "gants.png"));
+        inputWord.add(new Word(158L, "Bonnet", "bonnet.png"));
+        when(repository.findAll()).thenReturn(inputWord);
 
         //WHEN
-        List<Word> outputWords = service.findAll("");
+        List<Word> outputWord = service.findNodes();
 
         //THEN
-        assertThat(outputWords.size()).isEqualTo(3);
+        assertThat(outputWord.size()).isEqualTo(3);
+        Word word = outputWord.get(2);
+        assertThat(word.getWord()).isEqualTo("Bonnet");
 
     }
-    */
 
 /*  //////A TERMINER UNE FOIS QU'UNE REQUETE GET BY NAME SERA CREEE//////
 
@@ -67,6 +66,7 @@ public class WordServiceTest {
         final String str = "Ma";
         inputWords.add(new Word("Marguerite","Il était une fois",3));
         inputWords.add(new Word("Marie","la petite maison",3));
+
         //////A TERMINER UNE FOIS QU'UNE REQUETE GET BY NAME SERA CREEE//////
         when(repository.findByNameContaining(str)).thenReturn(inputArtists);
 
@@ -79,9 +79,9 @@ public class WordServiceTest {
     }*/
 
 
-    @DisplayName("find icon by id")
+    @DisplayName("find icon by relation and id")
     @Test
-    public void findByIdTest() {
+    public void findByRelationAndIdTest() {
 
         //GIVEN
         long idWord = 157;
@@ -112,9 +112,9 @@ public class WordServiceTest {
     public void insertTest() {
 
         //GIVEN
-        Long idWord = 200;
-        Word inputWord = new Word(200,"Castex","castex.png");
-        Word outputWord = new Word(200,"Castex","castex.png");
+        long idWord = 200;
+        Word inputWord = new Word(200L,"Castex","castex.png");
+        Word outputWord = new Word(200L,"Castex","castex.png");
         outputWord.setId(idWord);
         when(repository.save(inputWord)).thenReturn(outputWord);
 
@@ -135,8 +135,8 @@ public class WordServiceTest {
     public void updateTest() {
 
         //GIVEN
-        Long idWord = 14;
-        Word word = new Word(14,"T-Shirt","tShirt.png");
+        long idWord = 14;
+        Word word = new Word(14L,"T-Shirt","tShirt.png");
         word.setId(idWord);
         when(repository.findById(idWord)).thenReturn(Optional.of(word));
         when(repository.save(word)).thenReturn(word);
