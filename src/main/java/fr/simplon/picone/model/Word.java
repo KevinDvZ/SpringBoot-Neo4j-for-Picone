@@ -13,7 +13,6 @@ public class Word {
     @GeneratedValue
     private Long id;
 
-    
     private String word;
 
     @Property("img_url")

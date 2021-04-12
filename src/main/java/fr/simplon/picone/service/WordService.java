@@ -15,4 +15,6 @@ public interface WordService {
 
     List<Word> findByIdAndByRelation(Long id, String relation);
 
+    Word addWord(Word word);
+
 }
