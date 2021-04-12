@@ -30,4 +30,9 @@ public class WordServiceImpl implements WordService {
         return wordRepository.findChildNodes(relation, id);
     }
 
+    @Override
+    public Word addWord(Word word) {
+        return wordRepository.save(word);
+    }
+
 }

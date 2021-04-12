@@ -23,7 +23,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 
 
     @Override
-public Establishment returnAddEstablishmentByEstablishment(Establishment establishment){
+    public Establishment returnAddEstablishmentByEstablishment(Establishment establishment){
         return establishmentRepository.save(establishment);
     }
     @Override
