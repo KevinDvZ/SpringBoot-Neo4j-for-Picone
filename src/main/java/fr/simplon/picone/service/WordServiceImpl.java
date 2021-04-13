@@ -16,7 +16,7 @@ public class WordServiceImpl implements WordService {
     private WordRepository wordRepository;
 
     @Override
-    public List<Word> findNodes() {
+    public List<Word> findAllIcons() {
         return wordRepository.findAll();
     }
 

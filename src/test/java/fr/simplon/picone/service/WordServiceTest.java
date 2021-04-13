@@ -13,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -46,7 +45,7 @@ public class WordServiceTest {
         when(repository.findAll()).thenReturn(inputWord);
 
         //WHEN
-        List<Word> outputWord = service.findNodes();
+        List<Word> outputWord = service.findAllIcons();
 
         //THEN
         assertThat(outputWord.size()).isEqualTo(3);

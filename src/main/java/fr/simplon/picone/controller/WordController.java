@@ -20,8 +20,8 @@ public class WordController {
 
     @CrossOrigin("*")
     @GetMapping("/mots")
-    public List<Word> findNodes(){
-        return wordService.findNodes();
+    public List<Word> findAllIcons(){
+        return wordService.findAllIcons();
     }
 
     @CrossOrigin("*")
