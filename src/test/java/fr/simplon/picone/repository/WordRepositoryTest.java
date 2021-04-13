@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.repository.query.Param;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -25,19 +26,18 @@ public class WordRepositoryTest {
 
     @DisplayName("Find next icon by relationship")
     @Test
-    public void findChildNodes() {
-
-        ///////////////////A RETAPER!!!!!!!!!!!!!!!/////////////////////////////////////
+    public void findChildNodes(@Param("relation") String relation, @Param("id") Long id) {
 
         //GIVEN
         Word wordBoire = new Word(66L, "Boire","boire.png");
         entityManager.persist(wordBoire);
+        //String relation = "besoin_physiologique";
 
         //WHEN
-        List<Word> wordSelect = repository.findChildNodes("boire", 24L);
+        List<Word> foundWord = repository.findChildNodes("besoin_physiologique", 66L);
 
         //THEN
-        assertThat(wordSelect.size()).isEqualTo(1);
+        assertThat(foundWord.size()).isEqualTo(1);
 
     }
 

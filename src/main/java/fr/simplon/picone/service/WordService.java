@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public interface WordService {
 
-    List<Word> findNodes();
+    List<Word> findAllIcons();
 
     Optional<Word> findNodesById(Long id);
 
