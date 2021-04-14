@@ -15,28 +15,39 @@ public class WordController {
     @Autowired
     WordService wordService;
 
+    //Get all icons.
     @CrossOrigin("*")
     @GetMapping("/mots")
     public List<Word> findAllIcons(){
         return wordService.findAllIcons();
     }
 
+    //Get icon by his ID.
     @CrossOrigin("*")
     @GetMapping(value = "/mots/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<Word> findNodesById(@PathVariable Long id){
         return wordService.findNodesById(id);
     }
 
+    //Get icon(s) child by icon parent's ID and relationship.
     @CrossOrigin("*")
     @GetMapping(value = "/mots/{id}/{relation}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Word> findNodesByIdAndRelation(@PathVariable Long id, @PathVariable String relation){
         return wordService.findByIdAndByRelation(id, relation);
     }
 
+    //Add an icon.
     @CrossOrigin("*")
-    @PostMapping(value = "/icon/add")
-    public Word addIcon(@RequestBody Word word, @RequestParam(required = true) Long idWord) throws InterruptedException {
-        return wordService.addIcon(word, idWord);
+    @PostMapping(value = "/icon")
+    public Word addIcon(@RequestBody Word word) {
+        return wordService.addIcon(word);
+    }
+
+    //Add an icon and link it with another icon with a relationship.
+    @CrossOrigin("*")
+    @PostMapping(value = "/icon/relation")
+    public Word addIconWithRelation(@RequestBody Word word, @RequestParam(required = true) Long idWord) throws InterruptedException {
+        return wordService.addIconWithRelation(word, idWord);
     }
 
 }
