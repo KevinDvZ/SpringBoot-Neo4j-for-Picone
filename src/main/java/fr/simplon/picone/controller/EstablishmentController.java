@@ -36,17 +36,17 @@ public class EstablishmentController {
     }
 
     @CrossOrigin(origins ="*")
-    @PostMapping(value = "/add/establishments", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/establishments", produces = MediaType.APPLICATION_JSON_VALUE)
     public Establishment returnAddEstablishment(@RequestBody Establishment establishment) {
         return establishmentImpl.returnAddEstablishmentByEstablishment(establishment);
     }
     @CrossOrigin(origins ="*")
-    @DeleteMapping(value = "/delete/establishments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/establishments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void returnDeleteEstablishment(@PathVariable(value = "id") long id) {
         establishmentImpl.deleteEstablishment(id);
     }
     @CrossOrigin(origins ="*")
-    @PutMapping(value ="/update/establishments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value ="/establishments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Establishment UpdateEstablishment(@RequestBody Establishment establishment) {
         return establishmentImpl.returnUpdateEstablishmentByEstablishment(establishment);
 
