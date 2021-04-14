@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Optional;
+
 @RestController
 public class PatientController {
 
@@ -21,7 +23,7 @@ public class PatientController {
 
     @CrossOrigin(origins ="*")
     @GetMapping(value = "/patients/{id}")
-    public Patient findPatientById(@PathVariable(value = "id") Long id) {
+    public Optional <Patient> findPatientById(@PathVariable(value = "id") Long id) {
         return patientService.findPatientById(id);
     }
 
@@ -31,10 +33,40 @@ public class PatientController {
         return patientService.addPatient(patient, idEstablishment);
     }
 
-    @CrossOrigin(origins ="*")
+   /* @CrossOrigin(origins ="*")
     @PutMapping(value = "/patients/{id}")
-    public Patient updatePatient (@RequestBody Patient patient) {
-        return patientService.updatePatient(patient);
+    public Patient updatePatient (@RequestBody Patient patient, @PathVariable(value = "id") Long id) {
+        return patientService.updatePatient(patient, id);
+    }*/
+
+    @CrossOrigin(value = "", allowedHeaders = "")
+    @PutMapping(value = "/patients/{id}")
+    public @ResponseBody
+    Patient updatePatient(@RequestBody Patient patient, @PathVariable(value = "id") Long id)throws Exception{
+     Optional<Patient> e =patientService.findPatientById(id);
+    if (e.isPresent()){
+        Patient currentPatient= e.get();
+        String firstName = patient.getFirstName();
+
+        if (firstName != null){
+            currentPatient.setFirstName(firstName);
+        }
+        String lastName = patient.getLastName();
+        if (lastName != null){
+            currentPatient.setLastName(lastName);
+        }
+        String email = patient.getEmail();
+        if (email != null){
+            currentPatient.setEmail(email);
+        }
+        String password = patient.getPassword();
+        if (password != null){
+            currentPatient.setPassword(password);
+        }
+        patientService.updatePatient(currentPatient);
+        return currentPatient;
+    } else {
+        return null;}
     }
 
     @CrossOrigin(origins ="*")

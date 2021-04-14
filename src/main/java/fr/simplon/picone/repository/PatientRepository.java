@@ -8,6 +8,7 @@ import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface PatientRepository extends Neo4jRepository<Patient, Long> {
@@ -17,7 +18,7 @@ public interface PatientRepository extends Neo4jRepository<Patient, Long> {
     Patient addPatient(@Param("patientParam")Patient patient);
 
     @Query("MATCH (n:Patient) where id(n)=$id return n")
-    Patient findPatientById(Long id);
+    Optional<Patient> findPatientById(Long id);
 
     @Query("START n = node({id}) OPTIONAL MATCH n-[r]-() DELETE n,r")
      void deletePatient(Long id);
@@ -26,7 +27,7 @@ public interface PatientRepository extends Neo4jRepository<Patient, Long> {
     @Modifying
     public Long updateLastName(@Param("lastName")String lastName, @Param("id") Long id);
 
-    //@Query("MATCH (w:Establishment)-[r]->(m:Patient) WHERE id(w)= $id  AND type(r)= $relation return m")
-    //List<Admin> findChildNodes(@Param("relation") String relation, @Param("id") Long id);
+    @Query ("MATCH( n:Patient) WHERE id(n)=' ' SET n.firstName RETURN n")
+    Patient updatePatient(@Param("id") Long id);
 
 }
