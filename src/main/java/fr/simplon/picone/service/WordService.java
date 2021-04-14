@@ -15,6 +15,12 @@ public interface WordService {
 
     List<Word> findByIdAndByRelation(Long id, String relation);
 
-    Word addWord(Word word);
+    Word addIcon(Word word, Long idWord) throws InterruptedException;
+
+    //Word addIconWithRelation(Word word, Long idWord) throws InterruptedException;
+
+    //Word addIcon(Word word);
+
+    //Word createIconRelation(Long id1, Long id2);
 
 }

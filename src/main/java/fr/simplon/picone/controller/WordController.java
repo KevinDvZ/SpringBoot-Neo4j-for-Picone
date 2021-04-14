@@ -4,10 +4,7 @@ import fr.simplon.picone.model.Word;
 import fr.simplon.picone.service.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +31,12 @@ public class WordController {
     @GetMapping(value = "/mots/{id}/{relation}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Word> findNodesByIdAndRelation(@PathVariable Long id, @PathVariable String relation){
         return wordService.findByIdAndByRelation(id, relation);
+    }
+
+    @CrossOrigin("*")
+    @PostMapping(value = "/icon/add")
+    public Word addIcon(@RequestBody Word word, @RequestParam(required = true) Long idWord) throws InterruptedException {
+        return wordService.addIcon(word, idWord);
     }
 
 }

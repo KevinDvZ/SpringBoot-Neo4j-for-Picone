@@ -31,8 +31,16 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
-    public Word addWord(Word word) {
-        return wordRepository.save(word);
+    public Word addIcon(Word word, Long idWord) throws InterruptedException {
+        Word response = wordRepository.save(word);
+        Thread.sleep(500);
+        wordRepository.createIconRelation(idWord, response.getId());
+        return response;
     }
+
+    /*@Override
+    public Word addIcon(Word word) {
+        return wordRepository.save(word);
+    }*/
 
 }
