@@ -17,10 +17,10 @@ public interface WordRepository extends Neo4jRepository<Word, Long> {
     List<Word> findChildNodes(@Param("relation") String relation, @Param("id") Long id);
 
     @Query("CREATE (m:Word{ word: :wordParam.word, img_url: :wordParam.imgUrl} )")
-    Word addWord(@Param("wordParam")Word word);
+    Word addIcon(@Param("wordParam")Word word);
 
     //PROBLEME NOM RELATION =>
     @Query("MATCH (n) WHERE id(n)=$id1 MATCH (m) WHERE id(m)=$id2 CREATE (n)-[r:besoins_physiologiques]->(m)")
-    Word createWordRelation (Long id1, Long id2);
+    Word createIconRelation(Long id1, Long id2);
 
 }

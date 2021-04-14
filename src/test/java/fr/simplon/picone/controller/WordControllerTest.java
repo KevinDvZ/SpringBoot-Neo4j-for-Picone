@@ -6,27 +6,34 @@ import fr.simplon.picone.service.WordService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
 import org.neo4j.ogm.model.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.neo4j.AutoConfigureDataNeo4j;
 import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Tag("controller_word")
-//@WebMvcTest(controllers = WordController.class)
-@DataNeo4jTest
+
+@AutoConfigureDataNeo4j
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(controllers = WordController.class)
 public class WordControllerTest {
 
     @Autowired
@@ -37,33 +44,19 @@ public class WordControllerTest {
 
     @DisplayName("Icons list")
     @Test
-    //public void findAllIconsTest() throws Exception {
-
-    public void findNodes(@Autowired Neo4jTemplate neo4jTemplate) throws Exception {
+    public void findAllIconsTest() throws Exception {
 
         //GIVEN
-        List<Word> inputWord = new ArrayList<>();
 
-        inputWord.add(new Word(156L, "Chapeau", "chapeau.png"));
-        inputWord.add(new Word(157L, "Gants", "gants.png"));
-        inputWord.add(new Word(158L, "Bonnet", "bonnet.png"));
-
-        neo4jTemplate.save(inputWord);
-
-
-        //findAll(String cypherQuery, Class<T> domainType)
 
         //WHEN
         mockMvc.perform(get("/mots"))
-        //neo4jTemplate.findAll(Word.class);
-        //mockMvc.perform(neo4jTemplate.findAll(Word.class)).andExpect(status().isOk());
-        //List<Word> allEntities = neo4jTemplate.findAll("MATCH (n:Word) return n", Word.class);
-
-
 
         //THEN le statut de la réponse http est OK.
         .andExpect(status().isOk());
     }
+
+
 
     @DisplayName("get one icon by his ID")
     @Test
