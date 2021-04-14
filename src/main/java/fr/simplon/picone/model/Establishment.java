@@ -2,6 +2,9 @@ package fr.simplon.picone.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.neo4j.ogm.annotation.NodeEntity;
 import org.springframework.data.neo4j.core.schema.*;
 
 import java.util.Set;
@@ -23,6 +26,7 @@ public class Establishment {
     private String phone;
     private String word;
 
+    @JsonIgnore
     @Relationship(type = "liste", direction = Relationship.Direction.OUTGOING)
     private Set<Patient> patients;
 
