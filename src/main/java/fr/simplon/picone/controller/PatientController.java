@@ -26,19 +26,19 @@ public class PatientController {
     }
 
     @CrossOrigin(origins ="*")
-    @PostMapping(value = "/add/patients")
+    @PostMapping(value = "/patients")
     public Patient addPatient (@RequestBody Patient patient, @RequestParam(required = true) Long idEstablishment ) throws InterruptedException {
         return patientService.addPatient(patient, idEstablishment);
     }
 
     @CrossOrigin(origins ="*")
-    @PutMapping(value = "/update/patients/{id}")
+    @PutMapping(value = "/patients/{id}")
     public Patient updatePatient (@RequestBody Patient patient) {
         return patientService.updatePatient(patient);
     }
 
     @CrossOrigin(origins ="*")
-    @DeleteMapping(value = "/delete/patients/{id}")
+    @DeleteMapping(value = "/patients/{id}")
     public void deletePatient (@PathVariable(value = "id") Long id) {
         patientService.deletePatient(id);
     }
