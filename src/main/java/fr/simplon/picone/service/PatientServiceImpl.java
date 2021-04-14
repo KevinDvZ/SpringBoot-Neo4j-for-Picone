@@ -5,12 +5,10 @@ import fr.simplon.picone.model.Patient;
 import fr.simplon.picone.repository.EstablishmentRepository;
 import fr.simplon.picone.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PatientServiceImpl implements PatientService {
@@ -28,7 +26,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient findPatientById(Long id) {
+    public Optional<Patient> findPatientById(Long id) {
         return patientRepository.findPatientById(id);
     }
 
@@ -41,7 +39,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient updatePatient (Patient patient) {
+    public Patient updatePatient(Patient patient) {
         return patientRepository.save(patient);
     }
 
