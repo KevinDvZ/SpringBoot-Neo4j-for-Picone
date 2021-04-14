@@ -1,6 +1,7 @@
 package fr.simplon.picone.service;
 
 import fr.simplon.picone.model.Word;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,12 +16,9 @@ public interface WordService {
 
     List<Word> findByIdAndByRelation(Long id, String relation);
 
-    Word addIcon(Word word, Long idWord) throws InterruptedException;
+    Word addIcon(Word word);
 
-    //Word addIconWithRelation(Word word, Long idWord) throws InterruptedException;
+    Word addIconWithRelation(Word word, Long idWord) throws InterruptedException;
 
-    //Word addIcon(Word word);
-
-    //Word createIconRelation(Long id1, Long id2);
 
 }

@@ -31,16 +31,17 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
-    public Word addIcon(Word word, Long idWord) throws InterruptedException {
+    public Word addIcon(Word word) {
+        return wordRepository.save(word);
+    }
+
+    @Override
+    public Word addIconWithRelation(Word word, Long idWord) throws InterruptedException {
         Word response = wordRepository.save(word);
         Thread.sleep(500);
         wordRepository.createIconRelation(idWord, response.getId());
         return response;
     }
 
-    /*@Override
-    public Word addIcon(Word word) {
-        return wordRepository.save(word);
-    }*/
 
 }
