@@ -19,36 +19,36 @@ import java.util.List;
 public class EstablishmentController {
    
     @Autowired
-    EstablishmentServiceImpl establishmentImpl;
+    EstablishmentService establishmentService;
     @Autowired
     EstablishmentRepository establishmentRepository;
 
     @CrossOrigin(origins ="*")
     @GetMapping(value = "/establishments", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Establishment> returnAllEstablishment() {
-        return establishmentImpl.returnAllEstablishment();
+        return establishmentService.returnAllEstablishment();
     }
 
     @CrossOrigin(origins ="*")
-    @GetMapping(value = "/establishments/{id}")
+        @GetMapping(value = "/establishments/{id}")
     public Establishment findEstablishmentById(@PathVariable(value = "id") Long id) {
-        return establishmentImpl.findEstablishmentById(id);
+        return establishmentService.findEstablishmentById(id);
     }
 
     @CrossOrigin(origins ="*")
     @PostMapping(value = "/establishments", produces = MediaType.APPLICATION_JSON_VALUE)
     public Establishment returnAddEstablishment(@RequestBody Establishment establishment) {
-        return establishmentImpl.returnAddEstablishmentByEstablishment(establishment);
+        return establishmentService.returnAddEstablishmentByEstablishment(establishment);
     }
     @CrossOrigin(origins ="*")
     @DeleteMapping(value = "/establishments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void returnDeleteEstablishment(@PathVariable(value = "id") long id) {
-        establishmentImpl.deleteEstablishment(id);
+        establishmentService.deleteEstablishment(id);
     }
     @CrossOrigin(origins ="*")
     @PutMapping(value ="/establishments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Establishment UpdateEstablishment(@RequestBody Establishment establishment) {
-        return establishmentImpl.returnUpdateEstablishmentByEstablishment(establishment);
+        return establishmentService.returnUpdateEstablishmentByEstablishment(establishment);
 
 }
 //create relationship liste
