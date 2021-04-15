@@ -39,7 +39,8 @@ public class WordController {
     //Add an icon.
     @CrossOrigin("*")
     @PostMapping(value = "/icon")
-    public Word addIcon(@RequestBody Word word) {
+    public Word addIcon(@RequestBody Word word){
+
         return wordService.addIcon(word);
     }
 
@@ -49,5 +50,22 @@ public class WordController {
     public Word addIconWithRelation(@RequestBody Word word, @RequestParam(required = true) Long idWord) throws InterruptedException {
         return wordService.addIconWithRelation(word, idWord);
     }
+
+    //Delete an icon and his linked relationship.
+    @CrossOrigin("*")
+    @DeleteMapping(value = "/icon/relation/{id}")
+    public void deleteIconAndHisRelationship(@PathVariable(value = "id") Long id) {
+        wordService.deleteIconAndHisRelationship(id);
+    }
+
+    /*
+    //Add an icon and link it with another icon with a relationship.
+    @CrossOrigin("*")
+    @PostMapping(value = "/icon/relation")
+    public Word addIconWithCreatedRelation(@RequestBody Word word, @RequestParam(required = true) Long idWord) throws InterruptedException {
+        wordService.addIconWithCreatedRelation(word, idWord);
+        return wordRepository.createRelation()
+
+    }*/
 
 }

@@ -15,6 +15,7 @@ public class WordServiceImpl implements WordService {
     @Autowired
     private WordRepository wordRepository;
 
+
     @Override
     public List<Word> findAllIcons() {
         return wordRepository.findAll();
@@ -42,6 +43,19 @@ public class WordServiceImpl implements WordService {
         wordRepository.createIconRelation(idWord, response.getId());
         return response;
     }
+
+    @Override
+    public void deleteIconAndHisRelationship(Long id) {
+        wordRepository.deleteById(id);
+    }
+
+    /*@Override
+    public Word addIconWithCreatedRelation(Word word, Long idWord) throws InterruptedException{
+        Word response = wordRepository.save(word);
+        Thread.sleep(500);
+        wordRepository.createIconRelation(idWord, response.getId());
+        return response;
+    }*/
 
 
 }
