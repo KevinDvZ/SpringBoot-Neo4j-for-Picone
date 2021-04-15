@@ -3,8 +3,10 @@ package fr.simplon.picone.model;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.List;
+import java.util.Set;
 
 @Node("Scrolling")
 public class Scrolling {
@@ -17,8 +19,28 @@ public class Scrolling {
     private Boolean isActive;
 
     private Long defaultSpeed;
-    private List<String> codeCouleur ;
+    private String codeCouleur ;
 
+    @Relationship(type = "sauvegarde", direction = Relationship.Direction.INCOMING)
+    private Set<Patient> patients;
+
+    public Scrolling(Long id, Boolean byDefault, Boolean isActive, Long defaultSpeed, String codeCouleur) {
+        this.id = id;
+        this.byDefault = byDefault;
+        this.isActive = isActive;
+        this.defaultSpeed = defaultSpeed;
+        this.codeCouleur = codeCouleur;
+    }
+
+    public Scrolling( Boolean byDefault, Boolean isActive, Long defaultSpeed, String codeCouleur) {
+        this.byDefault = byDefault;
+        this.isActive = isActive;
+        this.defaultSpeed = defaultSpeed;
+        this.codeCouleur = codeCouleur;
+    }
+
+    public Scrolling() {
+    }
 
     public Long getId() {
         return id;
@@ -52,11 +74,11 @@ public class Scrolling {
         this.defaultSpeed = defaultSpeed;
     }
 
-    public List<String> getCodeCouleur() {
+    public String getCodeCouleur() {
         return codeCouleur;
     }
 
-    public void setCodeCouleur(List<String> codeCouleur) {
+    public void setCodeCouleur(String codeCouleur) {
         this.codeCouleur = codeCouleur;
     }
 }

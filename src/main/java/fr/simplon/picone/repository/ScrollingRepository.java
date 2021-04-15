@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ScrollingRepository extends Neo4jRepository<Scrolling, Long> {
 
-    @Query("MATCH (m:Patient)-[:sauvegarde]->(n:Scrolling) where n.byDefault=true AND id(m)= $id return n")
-    Scrolling findDefaultScrollingByPatientId(@Param("id") Long id);
+    @Query("MATCH (m:Patient)-[r:sauvegarde]->(n:Scrolling) where id(m)=$idPatient return n ")
+    Scrolling findDefaultScrollingByPatientId(@Param("idPatient") Long id);
 }
