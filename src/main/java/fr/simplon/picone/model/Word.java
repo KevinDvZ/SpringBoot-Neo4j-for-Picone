@@ -18,10 +18,6 @@ public class Word {
     @Property("img_url")
     private String imgUrl;
 
-    /*
-    @Relationship(type="affiche")
-   private List<Mot> motsSuivants = new ArrayList<>();
-*/
 
     public Word() {
     }
