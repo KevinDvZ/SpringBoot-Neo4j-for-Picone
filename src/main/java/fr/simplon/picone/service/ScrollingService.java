@@ -2,6 +2,7 @@ package fr.simplon.picone.service;
 
 
 import fr.simplon.picone.model.Scrolling;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,4 +17,7 @@ public interface ScrollingService {
 
     Optional<Scrolling> findScrollingById(Long id, Scrolling scrolling);
 
+        ResponseEntity deleteScrolling(Long id);
+
+    Scrolling createIsolatedScrolling(Scrolling scrolling);
 }

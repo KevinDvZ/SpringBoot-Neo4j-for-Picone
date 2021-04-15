@@ -70,7 +70,7 @@ public class ScrollingControllerTest {
 
         //WHEN
 
-        mockMvc.perform(post("/scrollings").param("get",get).content(json).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/scrollings","PostMappingWithParam").param("get",get).content(json).contentType(MediaType.APPLICATION_JSON))
 
         //THEN le statut de la réponse http est OK.
         .andExpect(status().isOk())
