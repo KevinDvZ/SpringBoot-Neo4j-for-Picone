@@ -2,7 +2,6 @@ package fr.simplon.picone.model;
 
 
 
-import org.neo4j.ogm.annotation.NodeEntity;
 import org.springframework.data.neo4j.core.schema.*;
 
 import java.util.Set;
