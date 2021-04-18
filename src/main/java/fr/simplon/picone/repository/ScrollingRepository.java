@@ -11,5 +11,5 @@ public interface ScrollingRepository extends Neo4jRepository<Scrolling, Long> {
     Scrolling findDefaultScrollingByPatientId(Long idPatient);
 
     @Query("MATCH (m:Patient) WHERE ID(m)= $idPatient MATCH (n:Scrolling) where ID(n)= $idScrolling CREATE  (m)-[r:save]->(n) return n ")
-    Scrolling createRealtionBetweenPatientScrolling(@Param ("idPatient") Long idPatient, @Param ("idScrolling")  Long idScrolling);
+    Scrolling createRelationBetweenPatientScrolling(@Param ("idPatient") Long idPatient, @Param ("idScrolling")  Long idScrolling);
 }
