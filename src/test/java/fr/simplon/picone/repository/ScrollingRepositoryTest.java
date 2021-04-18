@@ -1,5 +1,6 @@
 package fr.simplon.picone.repository;
 
+import fr.simplon.picone.model.Patient;
 import fr.simplon.picone.model.Scrolling;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,10 +54,13 @@ public class ScrollingRepositoryTest {
     }
 
     @Autowired
-    private ScrollingRepository testRepository;
+    private PatientRepository mockPatientRepository;
+
+    @Autowired
+    private ScrollingRepository testScrollingRepository;
 
 
-    public List<Scrolling> testSaveMethod() {
+    public List<Scrolling> testSaveScrollingMethod() {
 
         List<Scrolling> inputScrolling = new ArrayList<>();
         inputScrolling.add(new Scrolling(33L, true, true, 100L, "bec8a3"));
@@ -67,16 +71,42 @@ public class ScrollingRepositoryTest {
 
     }
 
+    public List<Patient> testSavePatientMehod() {
+        List<Patient> inputPatients = new ArrayList<>();
+        inputPatients.add( new Patient ( "Thierry","Beccarro","thierrry.becarro@tvmail.com","FR2","haha.png"));
+
+        return inputPatients;
+    }
+
 
     @DisplayName("Test findAll() Repository")
     @Test
     public void SDNTest() {
         //GIVEN
-        testRepository.saveAll(testSaveMethod());
-        List<Scrolling> inputDATAS = testSaveMethod();
+        testScrollingRepository.saveAll(testSaveScrollingMethod());
+        List<Scrolling> inputDATAS = testSaveScrollingMethod();
 
         //THEN
-        assertThat( inputDATAS.size(), equalToObject(testRepository.findAll().size()) );
+        assertThat( inputDATAS.size(), equalToObject(testScrollingRepository.findAll().size()) );
+    }
+
+    @DisplayName("Test findDefaultScroling")
+    @Test
+    public void repoMethodDefaultScrollingTest() {
+        //GIVEN
+        testScrollingRepository.saveAll(testSaveScrollingMethod());
+        mockPatientRepository.saveAll(testSavePatientMehod());
+
+        //WHEN
+        testScrollingRepository.createRealtionBetweenPatientScrolling(1L,33L);
+        System.out.println(testScrollingRepository.findAll().toString());
+        System.out.println(mockPatientRepository.findAll().toString());
+
+        Long idTofind = 33L;
+        Scrolling scrollingToFind = new Scrolling( true, true, 100L, "bec8a3");
+
+        //THEN
+        assertThat( scrollingToFind.getCodeCouleur(), equalToObject(testScrollingRepository.findDefaultScrollingByPatientId(idTofind).getCodeCouleur()) );
     }
 
 
