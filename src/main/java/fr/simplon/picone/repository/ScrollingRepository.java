@@ -7,9 +7,9 @@ import org.springframework.data.repository.query.Param;
 
 public interface ScrollingRepository extends Neo4jRepository<Scrolling, Long> {
 
-    @Query("MATCH (m:Patient)-[r:sauvegarde]->(n:Scrolling) where id(m)=$idPatient return n ")
-    Scrolling findDefaultScrollingByPatientId(@Param("idPatient") Long id);
+    @Query("MATCH (m:Patient)-[r:save]->(n:Scrolling) WHERE ID(m)= $idPatient return n ")
+    Scrolling findDefaultScrollingByPatientId(Long idPatient);
 
-    @Query("MATCH (m:Patient) where id(m)=$idPatient MATCH (n:Scrolling) where id(n)= $idScrolling CREATE  (m)-[r:sauvegarde]->(n) return n ")
-    Scrolling createRealtionBetweenPatientScrolling(@Param("idPatient") Long idPat, @Param("idScrolling") Long idScroll);
+    @Query("MATCH (m:Patient) WHERE ID(m)= $idPatient MATCH (n:Scrolling) where ID(n)= $idScrolling CREATE  (m)-[r:save]->(n) return n ")
+    Scrolling createRealtionBetweenPatientScrolling(@Param ("idPatient") Long idPatient, @Param ("idScrolling")  Long idScrolling);
 }
