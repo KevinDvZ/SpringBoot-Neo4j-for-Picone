@@ -1,44 +1,60 @@
 package fr.simplon.picone.repository;
 
 import fr.simplon.picone.model.Scrolling;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.neo4j.driver.AuthTokens;
-import org.neo4j.driver.Driver;
-import org.neo4j.driver.GraphDatabase;
-import org.neo4j.driver.Session;
+import org.neo4j.ogm.config.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.Neo4jContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import static com.jayway.jsonpath.internal.path.PathCompiler.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
-
+import static org.hamcrest.core.IsEqual.equalToObject;
 
 @DataNeo4jTest
+@Transactional(propagation = Propagation.NEVER)
 @Testcontainers
 public class ScrollingRepositoryTest {
 
     @Container
     public static Neo4jContainer neo4jContainer = new Neo4jContainer("neo4j")
-            .withAdminPassword(null);
+            .withAdminPassword("test");
 
 
     @DynamicPropertySource
     static void neo4jProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.data.neo4j.uri", neo4jContainer::getBoltUrl);
+        registry.add("spring.neo4j.uri", neo4jContainer::getBoltUrl);
+        registry.add("spring.neo4j.authentication.username", () -> "neo4j");
+        registry.add("spring.neo4j.authentication.password", neo4jContainer::getAdminPassword);
     }
 
 
+    @TestConfiguration
+    static class Config{
+        @Bean
+        public org.neo4j.ogm.config.Configuration configuration(){
+            return new Configuration.Builder()
+                    .uri(neo4jContainer.getBoltUrl())
+                    .credentials( null , neo4jContainer.getAdminPassword())
+                    .build();
+
+        }
+    }
+
     @Autowired
-    private ScrollingRepository exampleRepository;
+    private ScrollingRepository testRepository;
+
 
     public List<Scrolling> testSaveMethod() {
 
@@ -52,20 +68,16 @@ public class ScrollingRepositoryTest {
     }
 
 
+    @DisplayName("Test findAll() Repository")
     @Test
-    void testSomethingUsingBolt() {
+    public void SDNTest() {
+        //GIVEN
+        testRepository.saveAll(testSaveMethod());
+        List<Scrolling> inputDATAS = testSaveMethod();
 
-        // Retrieve the Bolt URL from the container
-        String boltUrl = neo4jContainer.getBoltUrl();
-        try (
-                Driver driver = GraphDatabase.driver(boltUrl, AuthTokens.none());
-                Session session = driver.session()
-        ) {
-            long one = session.run("RETURN 1", Collections.emptyMap()).next().get(0).asLong();
-            assertThat(this.one).isEqualTo(1L);
-
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
+        //THEN
+        assertThat( inputDATAS.size(), equalToObject(testRepository.findAll().size()) );
     }
+
+
 }
