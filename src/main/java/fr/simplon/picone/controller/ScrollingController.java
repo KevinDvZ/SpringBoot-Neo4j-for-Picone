@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ScrollingController {
@@ -36,8 +35,8 @@ public class ScrollingController {
     }
 
     @PutMapping("/scrollings/{id}")
-    public Optional<Scrolling> update(@PathVariable("id") Long id, @RequestBody Scrolling scrolling) {
-        return this.scrollingService.findScrollingById(id, scrolling);
+    public Scrolling update(@PathVariable("id") Long id, @RequestBody Scrolling scrolling) {
+        return this.scrollingService.setScrollingById(id, scrolling);
 
     }
 

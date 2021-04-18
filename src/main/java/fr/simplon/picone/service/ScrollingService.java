@@ -2,10 +2,10 @@ package fr.simplon.picone.service;
 
 
 import fr.simplon.picone.model.Scrolling;
+import fr.simplon.picone.repository.ScrollingRepository;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ScrollingService {
 
@@ -15,7 +15,7 @@ public interface ScrollingService {
 
     List<Scrolling> getAllScrollings();
 
-    Optional<Scrolling> findScrollingById(Long id, Scrolling scrolling);
+    Scrolling setScrollingById(Long id, Scrolling scrolling);
 
     ResponseEntity deleteScrolling(Long id);
 
@@ -28,4 +28,6 @@ public interface ScrollingService {
     List<Scrolling> findAll();
 
     Scrolling createRelationBetweenPatientScrolling(Long patientIdToAnalyze, Long scrollingToBindId);
+
+    ScrollingRepository getInjectedBean();
 }

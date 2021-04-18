@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.transaction.annotation.Propagation;
@@ -64,7 +65,6 @@ public class ScrollingServiceTest {
     private ScrollingService testScrollingService;
 
 
-
     @AfterEach
     public void clear() {
         mockPatientRepository.deleteAll();
@@ -115,14 +115,113 @@ public class ScrollingServiceTest {
         final Long patientIdToAnalyze = patientToAnalyze.getId();
         final Scrolling scrollingToBind = testScrollingService.findAll().get(0);
         final Long scrollingToBindId = scrollingToBind.getId();
-        testScrollingService.createRelationBetweenPatientScrolling(patientIdToAnalyze,scrollingToBindId );
+        testScrollingService.createRelationBetweenPatientScrolling(patientIdToAnalyze, scrollingToBindId);
 
 
-        final Scrolling scrollingToFind = new Scrolling( true, true, 100L, "bec8a3");
+        final Scrolling scrollingToFind = new Scrolling(true, true, 100L, "bec8a3");
         scrollingToFind.setId(scrollingToBindId);
 
         //THEN
-        assertThat( testScrollingService.findDefaultScrollingByPatientId(patientIdToAnalyze).getId(), equalTo(scrollingToFind.getId()) );
+        assertThat(testScrollingService.findDefaultScrollingByPatientId(patientIdToAnalyze).getId(), equalTo(scrollingToFind.getId()));
 
     }
+
+    @DisplayName("Get every Scrollings in repository")
+    @Test
+    public void getAllScrollings(){
+
+       //GIVEN
+
+       List<Scrolling> inputScrolling = testSaveScrollingMethod();
+
+        //WHEN
+
+        mockPatientRepository.save(testSaveOnePatientMethod());
+        testScrollingService.saveAll(testSaveScrollingMethod());
+
+        // THEN
+
+        assertThat(inputScrolling.size(), equalTo(testScrollingService.findAll().size()));
+
+
+    }
+
+    @DisplayName("Edit Scrolling by Id")
+    @Test
+    public void setScrollingById(){
+
+        //GIVEN
+
+        Scrolling givenScrolling = new Scrolling (false, true, 500L, "#188e1c" );
+        List<Scrolling> inputScrolling = testSaveScrollingMethod();
+        mockPatientRepository.save(testSaveOnePatientMethod());
+        testScrollingService.saveAll(inputScrolling);
+
+        final Scrolling scrollingToChange = testScrollingService.findAll().get(0);
+        final Long givenId = scrollingToChange.getId();
+
+        //WHEN
+
+        Scrolling response = testScrollingService.setScrollingById(givenId,givenScrolling);
+
+
+        //THEN
+        assertThat( response.getId(), equalTo(givenId));
+        assertThat( response.getCodeCouleur(), equalTo(givenScrolling.getCodeCouleur()));
+
+
+    }
+
+    @DisplayName("Delete Scrolling by Id")
+    @Test
+    public void deleteScrollingById(){
+
+        //GIVEN
+
+        List<Scrolling> inputScrolling = testSaveScrollingMethod();
+        mockPatientRepository.save(testSaveOnePatientMethod());
+        testScrollingService.saveAll(inputScrolling);
+
+        final Scrolling scrollingToDelete = testScrollingService.findAll().get(0);
+        final Long givenId = scrollingToDelete.getId();
+
+        //WHEN
+
+        ResponseEntity response = testScrollingService.deleteScrolling(givenId);
+
+
+        //THEN
+        assertThat( response.getBody(), equalTo("Le noeud a ete supprime"));
+        assertThat( testScrollingService.findAll().size() , equalTo(inputScrolling.size()-1));
+
+
+    }
+
+    @DisplayName("Create isolated Scrolling")
+    @Test
+    public void createLonelyScrolling(){
+
+        //GIVEN
+
+        List<Scrolling> inputScrolling = testSaveScrollingMethod();
+        mockPatientRepository.save(testSaveOnePatientMethod());
+        testScrollingService.saveAll(inputScrolling);
+        Scrolling givenScrolling = new Scrolling (false, true, 500L, "#188e1c" );
+
+        //WHEN
+        testScrollingService.createIsolatedScrolling(givenScrolling);
+
+        //THEN
+        assertThat(testScrollingService.findAll().get(3).getCodeCouleur(), equalTo(givenScrolling.getCodeCouleur()));
+
+    }
+
+    /*
+    @DisplayName("Link a patient with a Scrolling")
+    @Test
+    public void createRelationBetweenPatientScrolling(){
+
+    }
+    */
+
 }
