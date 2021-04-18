@@ -3,14 +3,13 @@ package fr.simplon.picone.service;
 import fr.simplon.picone.model.Patient;
 import fr.simplon.picone.model.Scrolling;
 import fr.simplon.picone.repository.PatientRepository;
-import fr.simplon.picone.repository.ScrollingRepository;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.neo4j.ogm.config.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -27,7 +26,8 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-@DataNeo4jTest
+@SpringBootTest
+//@DataNeo4jTest
 @Transactional(propagation = Propagation.NEVER)
 @Testcontainers
 public class ScrollingServiceTest {
@@ -61,21 +61,20 @@ public class ScrollingServiceTest {
     private PatientRepository mockPatientRepository;
 
     @Autowired
-    private ScrollingRepository testScrollingRepository;
-
-    @Qualifier("ScrollingService")
-    @Autowired
     private ScrollingService testScrollingService;
 
-    @Qualifier("ScrollingServiceImpl")
-    @Autowired
-    private ScrollingService testScrollingServiceImpl;
+
 
     @AfterEach
     public void clear() {
         mockPatientRepository.deleteAll();
         testScrollingService.deleteAll();
         System.out.println("Repos flushed.");
+    }
+
+    @AfterAll
+    static void stopEmbeddedDatabaseServer() {
+        neo4jContainer.close();
     }
 
 
@@ -108,23 +107,22 @@ public class ScrollingServiceTest {
 
         //GIVEN
 
-        Patient patient = testSaveOnePatientMethod();
-        mockPatientRepository.save(patient);
-        testScrollingRepository.saveAll(testSaveScrollingMethod());
+        mockPatientRepository.save(testSaveOnePatientMethod());
+        testScrollingService.saveAll(testSaveScrollingMethod());
 
         //WHEN
         final Patient patientToAnalyze = mockPatientRepository.findAll().get(0);
         final Long patientIdToAnalyze = patientToAnalyze.getId();
-        final Scrolling scrollingToBind = testScrollingRepository.findAll().get(0);
+        final Scrolling scrollingToBind = testScrollingService.findAll().get(0);
         final Long scrollingToBindId = scrollingToBind.getId();
-        testScrollingRepository.createRelationBetweenPatientScrolling(patientIdToAnalyze,scrollingToBindId );
+        testScrollingService.createRelationBetweenPatientScrolling(patientIdToAnalyze,scrollingToBindId );
 
 
         final Scrolling scrollingToFind = new Scrolling( true, true, 100L, "bec8a3");
         scrollingToFind.setId(scrollingToBindId);
 
         //THEN
-        assertThat( testScrollingService.findDefaultScrollingByPatientId(patientIdToAnalyze), equalTo(scrollingToFind) );
+        assertThat( testScrollingService.findDefaultScrollingByPatientId(patientIdToAnalyze).getId(), equalTo(scrollingToFind.getId()) );
 
     }
 }

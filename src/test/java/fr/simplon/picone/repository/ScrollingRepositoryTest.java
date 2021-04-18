@@ -2,6 +2,7 @@ package fr.simplon.picone.repository;
 
 import fr.simplon.picone.model.Patient;
 import fr.simplon.picone.model.Scrolling;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -69,6 +70,11 @@ public class ScrollingRepositoryTest {
         System.out.println("Repos flushed.");
     }
 
+    @AfterAll
+    static void stopEmbeddedDatabaseServer() {
+        neo4jContainer.close();
+    }
+
 
     public List<Scrolling> testSaveScrollingMethod() {
 
@@ -134,12 +140,13 @@ public class ScrollingRepositoryTest {
         //GIVEN
 
         testScrollingRepository.saveAll(testSaveScrollingMethod());
-        Patient patient = testSaveOnePatientMethod();
-        mockPatientRepository.save(patient);
+        mockPatientRepository.save(testSaveOnePatientMethod());
+
         final Patient patientToAnalyze = mockPatientRepository.findAll().get(0);
         final Long patientIdToAnalyze = patientToAnalyze.getId();
         final Scrolling scrollingToBind = testScrollingRepository.findAll().get(0);
         final Long scrollingToBindId = scrollingToBind.getId();
+
         testScrollingRepository.createRelationBetweenPatientScrolling(patientIdToAnalyze,scrollingToBindId );
 
         // WHEN
