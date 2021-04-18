@@ -20,6 +20,10 @@ public class ScrollingServiceImpl implements ScrollingService {
         this.scrollingRepository = scrollingRepository;
     }
 
+    public ScrollingRepository getInjectedBean() {
+        return this.scrollingRepository;
+    }
+
     @Override
     public Scrolling findDefaultScrollingByPatientId(Long id) {
         return scrollingRepository.findDefaultScrollingByPatientId(id);
@@ -31,7 +35,7 @@ public class ScrollingServiceImpl implements ScrollingService {
     }
 
     @Override
-    public Optional<Scrolling> findScrollingById(Long id, Scrolling scrolling) {
+    public Scrolling setScrollingById(Long id, Scrolling scrolling) {
 
         Optional<Scrolling> monScro = scrollingRepository.findById(id)
                 .map(p -> {
@@ -43,7 +47,9 @@ public class ScrollingServiceImpl implements ScrollingService {
                 });
 
         monScro.map(this.scrollingRepository::save);
-        return scrollingRepository.findById(id);
+         Optional<Scrolling> optionalEntity = scrollingRepository.findById(id);
+         Scrolling scrollingRes = optionalEntity.get();
+         return scrollingRes;
     }
 
     @Override
