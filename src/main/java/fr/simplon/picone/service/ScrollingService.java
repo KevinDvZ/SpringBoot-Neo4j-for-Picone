@@ -3,13 +3,13 @@ package fr.simplon.picone.service;
 
 import fr.simplon.picone.model.Scrolling;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service("ScrollingService")
 public interface ScrollingService {
+
+
 
     Scrolling findDefaultScrollingByPatientId(Long id);
 
@@ -22,4 +22,10 @@ public interface ScrollingService {
     Scrolling createIsolatedScrolling(Scrolling scrolling);
 
     void deleteAll();
+
+    void saveAll(List<Scrolling> testSaveScrollingMethod);
+
+    List<Scrolling> findAll();
+
+    Scrolling createRelationBetweenPatientScrolling(Long patientIdToAnalyze, Long scrollingToBindId);
 }

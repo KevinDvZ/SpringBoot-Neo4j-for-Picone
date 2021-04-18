@@ -3,7 +3,6 @@ package fr.simplon.picone.service;
 import fr.simplon.picone.model.Scrolling;
 import fr.simplon.picone.repository.ScrollingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,13 +11,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Qualifier("ScrollingServiceImpl")
 public class ScrollingServiceImpl implements ScrollingService {
 
-
-    @Autowired
     private ScrollingRepository scrollingRepository;
 
+    @Autowired
+    public void setInjectedBean(ScrollingRepository scrollingRepository) {
+        this.scrollingRepository = scrollingRepository;
+    }
 
     @Override
     public Scrolling findDefaultScrollingByPatientId(Long id) {
@@ -84,5 +84,20 @@ public class ScrollingServiceImpl implements ScrollingService {
     @Override
     public void deleteAll() {
         scrollingRepository.deleteAll();
+    }
+
+    @Override
+    public void saveAll(List<Scrolling> listScrolling) {
+        scrollingRepository.saveAll(listScrolling);
+    }
+
+    @Override
+    public List<Scrolling> findAll() {
+        return scrollingRepository.findAll();
+    }
+
+    @Override
+    public Scrolling createRelationBetweenPatientScrolling(Long patientIdToAnalyze, Long scrollingToBindId) {
+        return scrollingRepository.createRelationBetweenPatientScrolling(patientIdToAnalyze, scrollingToBindId);
     }
 }
