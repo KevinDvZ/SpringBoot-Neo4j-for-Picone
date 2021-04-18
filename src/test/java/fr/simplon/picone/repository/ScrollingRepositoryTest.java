@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.IsEqual.equalToObject;
 
 @DataNeo4jTest
@@ -71,6 +72,10 @@ public class ScrollingRepositoryTest {
 
     }
 
+    public Patient testSaveOnePatientMethod() {
+        return new Patient ( "Thierry","Beccarro","thierrry.becarro@tvmail.com","FR2","haha.png");
+    }
+
     public List<Patient> testSavePatientMehod() {
         List<Patient> inputPatients = new ArrayList<>();
         inputPatients.add( new Patient ( "Thierry","Beccarro","thierrry.becarro@tvmail.com","FR2","haha.png"));
@@ -94,19 +99,25 @@ public class ScrollingRepositoryTest {
     @Test
     public void repoMethodDefaultScrollingTest() {
         //GIVEN
+
         testScrollingRepository.saveAll(testSaveScrollingMethod());
-        mockPatientRepository.saveAll(testSavePatientMehod());
+        Patient patient = testSaveOnePatientMethod();
+         mockPatientRepository.save(patient);
+
+
 
         //WHEN
-        testScrollingRepository.createRealtionBetweenPatientScrolling(1L,33L);
-        System.out.println(testScrollingRepository.findAll().toString());
-        System.out.println(mockPatientRepository.findAll().toString());
+        final Patient patientToAnalyze = mockPatientRepository.findAll().get(0);
+        final Long patientIdToAnalyze = patientToAnalyze.getId();
+        final Scrolling scrollingToBind = testScrollingRepository.findAll().get(0);
+        final Long scrollingToBindId = scrollingToBind.getId();
+        testScrollingRepository.createRealtionBetweenPatientScrolling(patientIdToAnalyze,scrollingToBindId );
 
-        Long idTofind = 33L;
-        Scrolling scrollingToFind = new Scrolling( true, true, 100L, "bec8a3");
+
+        final Scrolling scrollingToFind = new Scrolling( true, true, 100L, "bec8a3");
 
         //THEN
-        assertThat( scrollingToFind.getCodeCouleur(), equalToObject(testScrollingRepository.findDefaultScrollingByPatientId(idTofind).getCodeCouleur()) );
+       assertThat( testScrollingRepository.findDefaultScrollingByPatientId(patientIdToAnalyze).getCodeCouleur(), equalTo(scrollingToFind.getCodeCouleur()) );
     }
 
 

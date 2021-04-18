@@ -26,7 +26,10 @@ public class Patient{
 
     }
 
-    public Patient (String lastName, String firstName,  String email, String password, String image) {
+    public Patient() {
+    }
+
+    public Patient (String lastName, String firstName, String email, String password, String image) {
 
         this.lastName = lastName;
         this.firstName = firstName;
