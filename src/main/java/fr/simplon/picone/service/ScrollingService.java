@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service("ScrollingService")
 public interface ScrollingService {
 
     Scrolling findDefaultScrollingByPatientId(Long id);
@@ -17,7 +17,9 @@ public interface ScrollingService {
 
     Optional<Scrolling> findScrollingById(Long id, Scrolling scrolling);
 
-        ResponseEntity deleteScrolling(Long id);
+    ResponseEntity deleteScrolling(Long id);
 
     Scrolling createIsolatedScrolling(Scrolling scrolling);
+
+    void deleteAll();
 }

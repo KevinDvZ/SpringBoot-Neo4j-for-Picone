@@ -1,12 +1,15 @@
-package fr.simplon.picone.repository;
+package fr.simplon.picone.service;
 
 import fr.simplon.picone.model.Patient;
 import fr.simplon.picone.model.Scrolling;
+import fr.simplon.picone.repository.PatientRepository;
+import fr.simplon.picone.repository.ScrollingRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.neo4j.ogm.config.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -23,13 +26,11 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.core.IsEqual.equalToObject;
 
 @DataNeo4jTest
 @Transactional(propagation = Propagation.NEVER)
 @Testcontainers
-public class ScrollingRepositoryTest {
-
+public class ScrollingServiceTest {
     @Container
     public static Neo4jContainer neo4jContainer = new Neo4jContainer("neo4j")
             .withAdminPassword("test");
@@ -44,12 +45,12 @@ public class ScrollingRepositoryTest {
 
 
     @TestConfiguration
-    static class Config{
+    static class Config {
         @Bean
-        public org.neo4j.ogm.config.Configuration configuration(){
+        public Configuration configuration() {
             return new Configuration.Builder()
                     .uri(neo4jContainer.getBoltUrl())
-                    .credentials( null , neo4jContainer.getAdminPassword())
+                    .credentials(null, neo4jContainer.getAdminPassword())
                     .build();
 
         }
@@ -62,10 +63,18 @@ public class ScrollingRepositoryTest {
     @Autowired
     private ScrollingRepository testScrollingRepository;
 
+    @Qualifier("ScrollingService")
+    @Autowired
+    private ScrollingService testScrollingService;
+
+    @Qualifier("ScrollingServiceImpl")
+    @Autowired
+    private ScrollingService testScrollingServiceImpl;
+
     @AfterEach
-    public void clear(){
+    public void clear() {
         mockPatientRepository.deleteAll();
-        testScrollingRepository.deleteAll();
+        testScrollingService.deleteAll();
         System.out.println("Repos flushed.");
     }
 
@@ -82,32 +91,21 @@ public class ScrollingRepositoryTest {
     }
 
     public Patient testSaveOnePatientMethod() {
-        return new Patient ( "Thierry","Beccarro","thierrry.becarro@tvmail.com","FR2","haha.png");
+        return new Patient("Thierry", "Beccarro", "thierrry.gerard@tvmail.com", "FR2", "haha.png");
     }
 
     public List<Patient> testSaveSeveralPatientMehods() {
         List<Patient> inputPatients = new ArrayList<>();
-        inputPatients.add( new Patient ( "Thierry","Beccarro","thierrry.becarro@tvmail.com","FR2","haha.png"));
+        inputPatients.add(new Patient("Thierry", "Beccarro", "thierrry.gerard@tvmail.com", "FR2", "haha.png"));
 
         return inputPatients;
     }
 
 
-
-    @DisplayName("Repository : findAll()")
+    @DisplayName("Find default scrolling for a Patient")
     @Test
-    public void SDNTest() {
-        //GIVEN
-        testScrollingRepository.saveAll(testSaveScrollingMethod());
-        List<Scrolling> inputDATAS = testSaveScrollingMethod();
+    public void findDefaultScrollingByPatientIdTest() {
 
-        //THEN
-        assertThat( inputDATAS.size(), equalToObject(testScrollingRepository.findAll().size()) );
-    }
-
-    @DisplayName("Repository : find Default Scrolling for a Patient")
-    @Test
-    public void repoMethodDefaultScrollingTest() {
         //GIVEN
 
         Patient patient = testSaveOnePatientMethod();
@@ -123,34 +121,10 @@ public class ScrollingRepositoryTest {
 
 
         final Scrolling scrollingToFind = new Scrolling( true, true, 100L, "bec8a3");
+        scrollingToFind.setId(scrollingToBindId);
 
         //THEN
-       assertThat( testScrollingRepository.findDefaultScrollingByPatientId(patientIdToAnalyze).getCodeCouleur(), equalTo(scrollingToFind.getCodeCouleur()) );
+        assertThat( testScrollingService.findDefaultScrollingByPatientId(patientIdToAnalyze), equalTo(scrollingToFind) );
+
     }
-
-    @DisplayName("Repository : delete a scrolling linked to a patient")
-    @Test
-    public void deleteScrollingTest() {
-        //GIVEN
-
-        testScrollingRepository.saveAll(testSaveScrollingMethod());
-        Patient patient = testSaveOnePatientMethod();
-        mockPatientRepository.save(patient);
-        final Patient patientToAnalyze = mockPatientRepository.findAll().get(0);
-        final Long patientIdToAnalyze = patientToAnalyze.getId();
-        final Scrolling scrollingToBind = testScrollingRepository.findAll().get(0);
-        final Long scrollingToBindId = scrollingToBind.getId();
-        testScrollingRepository.createRelationBetweenPatientScrolling(patientIdToAnalyze,scrollingToBindId );
-
-        // WHEN
-
-        testScrollingRepository.deleteById(scrollingToBindId);
-
-
-        //THEN
-        assertThat( testScrollingRepository.findAll().size(), equalTo(2));
-    }
-
-
-
 }
