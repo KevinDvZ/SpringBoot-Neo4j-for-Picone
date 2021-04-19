@@ -14,21 +14,35 @@ public class AdminServiceImpl implements AdminService {
 
 
     @Autowired
-    private AdminRepository adminRepository;
+    AdminRepository adminRepository;
 
     @Override
-    public List<Admin> findNodes() {
+    public List<Admin> findNodes()throws Exception {
         return adminRepository.findAll();
     }
 
     @Override
-    public Optional<Admin> findNodesById(Long id) {
+    public Optional<Admin> findNodesById(Long id)throws Exception {
         return adminRepository.findById(id);
     }
 
     @Override
-    public List<Admin> findByIdAndByRelation( Long id, String relation) {
+    public List<Admin> findByIdAndByRelation(Long id, String relation)throws Exception {
         return adminRepository.findChildNodes(relation, id);
     }
 
+    @Override
+    public Admin addAdmin(Admin admin) throws Exception{
+        return adminRepository.save(admin);
+    }
+
+    @Override
+    public Admin upadateAdmin(Admin user) {
+        return adminRepository.save(user);
+    }
+
+    @Override
+    public void deleteAdmin(Long id) {
+         adminRepository.deleteById(id);
+    }
 }
