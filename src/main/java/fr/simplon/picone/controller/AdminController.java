@@ -2,7 +2,7 @@ package fr.simplon.picone.controller;
 
 
 import fr.simplon.picone.model.Admin;
-import fr.simplon.picone.service.AdminServiceImpl;
+import fr.simplon.picone.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class AdminController {
 
     @Autowired
-    AdminServiceImpl adminService;
+    AdminService adminService;
 
     @CrossOrigin(value = "*", allowedHeaders = "*")
     @GetMapping(value = "/admins")

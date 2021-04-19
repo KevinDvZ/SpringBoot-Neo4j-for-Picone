@@ -1,5 +1,6 @@
 package fr.simplon.picone;
 
+import fr.simplon.picone.controller.AdminController;
 import fr.simplon.picone.controller.EstablishmentController;
 import fr.simplon.picone.controller.MoodController;
 import fr.simplon.picone.controller.WordController;
@@ -11,6 +12,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class PiconeApplicationTests {
+
+	@Autowired
+	private AdminController adminController;
 
 	@Autowired
 	private EstablishmentController establishmentController;
