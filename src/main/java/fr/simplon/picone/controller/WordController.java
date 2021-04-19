@@ -18,14 +18,14 @@ public class WordController {
     //Get all icons.
     @CrossOrigin("*")
     @GetMapping("/mots")
-    public List<Word> findAllIcons(){
+    public List<Word> findAllIcons() {
         return wordService.findAllIcons();
     }
 
     //Get icon by his ID.
     @CrossOrigin("*")
     @GetMapping(value = "/mots/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<Word> findNodesById(@PathVariable Long id){
+    public Optional<Word> findNodesById(@PathVariable Long id) {
         return wordService.findNodesById(id);
     }
 
@@ -49,6 +49,13 @@ public class WordController {
     @PostMapping(value = "/icon/relation")
     public Word addIconWithRelation(@RequestBody Word word, @RequestParam(required = true) Long idWord) throws InterruptedException {
         return wordService.addIconWithRelation(word, idWord);
+    }
+
+    //Update an icon.
+    @CrossOrigin("*")
+    @PutMapping(value = "/icon/{id}")
+    public Word updateIcon(@RequestBody Word word) {
+        return wordService.updateIcon(word);
     }
 
     //Delete an icon and his linked relationship.
