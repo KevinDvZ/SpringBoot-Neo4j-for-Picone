@@ -23,6 +23,14 @@ public interface WordRepository extends Neo4jRepository<Word, Long> {
     @Query("MATCH (n) WHERE id(n)=$id1 MATCH (m) WHERE id(m)=$id2 CREATE (n)-[r:besoins_physiologiques]->(m)")
     Word createIconRelation(Long id1, Long id2);
 
+    /*@Query("updateIcon n SET n.img_url = :imgUrl WHERE n.id = :id")
+    @Modifying
+    public Long updateIcon(@Param("imgUrl")String imgUrl, @Param("id") Long id);*/
+
+    @Query("MERGE (n:Word{ word: :wordParam.word, img_url: :wordParam.imgUrl} ) WHERE id(n)=$id SET n.word = :word, n.img_url = :imgUrl")
+    @Modifying
+    public Long updateIcon(@Param("word")String word, @Param("imgUrl")String imgUrl, @Param("id") Long id);
+
     @Query("START n = node({id}) OPTIONAL MATCH n-[r]-() DELETE n,r")
     void deleteIconAndHisRelationship(Long id);
 

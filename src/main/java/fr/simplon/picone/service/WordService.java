@@ -20,6 +20,8 @@ public interface WordService {
 
     Word addIconWithRelation(Word word, Long idWord) throws InterruptedException;
 
+    Word updateIcon(Word word);
+
     void deleteIconAndHisRelationship(Long id);
 
     //Word addIconWithCreatedRelation(Word word, Long idWord) throws InterruptedException;

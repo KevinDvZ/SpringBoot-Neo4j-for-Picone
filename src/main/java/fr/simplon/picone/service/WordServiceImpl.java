@@ -49,6 +49,11 @@ public class WordServiceImpl implements WordService {
         wordRepository.deleteById(id);
     }
 
+    @Override
+    public Word updateIcon(Word word) {
+        return wordRepository.save(word);
+    }
+
     /*@Override
     public Word addIconWithCreatedRelation(Word word, Long idWord) throws InterruptedException{
         Word response = wordRepository.save(word);
