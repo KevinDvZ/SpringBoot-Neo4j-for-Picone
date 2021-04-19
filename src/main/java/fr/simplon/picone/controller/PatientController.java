@@ -33,12 +33,6 @@ public class PatientController {
         return patientService.addPatient(patient, idEstablishment);
     }
 
-   /* @CrossOrigin(origins ="*")
-    @PutMapping(value = "/patients/{id}")
-    public Patient updatePatient (@RequestBody Patient patient, @PathVariable(value = "id") Long id) {
-        return patientService.updatePatient(patient, id);
-    }*/
-
     @CrossOrigin(value = "", allowedHeaders = "")
     @PutMapping(value = "/patients/{id}")
     public @ResponseBody
@@ -74,6 +68,4 @@ public class PatientController {
     public void deletePatient (@PathVariable(value = "id") Long id) {
         patientService.deletePatient(id);
     }
-
-
 }
