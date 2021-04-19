@@ -27,9 +27,10 @@ public interface EstablishmentRepository extends Neo4jRepository<Establishment, 
     @Modifying
     public Long updateName(@Param("name")String name, @Param("id") Long id);
 
-    @Query("MATCH (n:Establishment) return n") Establishment findEstablishmentById(Long id);
+    @Query("MATCH (n:Establishment) WHERE id(n)=$id return n")
+    Establishment findEstablishmentById(Long id);
 
-    //create relationship liste
+    //create relationship listew
 
     @Query("MATCH (n) WHERE id(n)=$id1 MATCH (m) WHERE id(m)=$id2 CREATE (n)-[r:liste]->(m)" )
     public Establishment createPatientRelation (Long id1, Long id2);
