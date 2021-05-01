@@ -1,7 +1,7 @@
 package fr.simplon.picone.service;
 
 import fr.simplon.picone.model.Patient;
-import fr.simplon.picone.model.Scrolling;
+import fr.simplon.picone.model.UiParameter;
 import fr.simplon.picone.repository.PatientRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -31,7 +31,7 @@ import static org.hamcrest.Matchers.equalTo;
 //@DataNeo4jTest
 @Transactional(propagation = Propagation.NEVER)
 @Testcontainers
-public class ScrollingServiceTest {
+public class UiParameterServiceTest {
     @Container
     public static Neo4jContainer neo4jContainer = new Neo4jContainer("neo4j")
             .withAdminPassword("test");
@@ -62,13 +62,13 @@ public class ScrollingServiceTest {
     private PatientRepository mockPatientRepository;
 
     @Autowired
-    private ScrollingService testScrollingService;
+    private UiParameterService testUiParameterService;
 
 
     @AfterEach
     public void clear() {
         mockPatientRepository.deleteAll();
-        testScrollingService.deleteAll();
+        testUiParameterService.deleteAll();
         System.out.println("Repos flushed.");
     }
 
@@ -78,14 +78,14 @@ public class ScrollingServiceTest {
     }
 
 
-    public List<Scrolling> testSaveScrollingMethod() {
+    public List<UiParameter> testSaveUiParameterMethod() {
 
-        List<Scrolling> inputScrolling = new ArrayList<>();
-        inputScrolling.add(new Scrolling(33L, true, true, 100L, "bec8a3"));
-        inputScrolling.add(new Scrolling(34L, false, false, 250L, "829b4f"));
-        inputScrolling.add(new Scrolling(35L, false, false, 850L, "a0c2ba"));
+        List<UiParameter> inputUiParameter = new ArrayList<>();
+        inputUiParameter.add(new UiParameter(33L, true, true, 100L, "bec8a3"));
+        inputUiParameter.add(new UiParameter(34L, false, false, 250L, "829b4f"));
+        inputUiParameter.add(new UiParameter(35L, false, false, 850L, "a0c2ba"));
 
-        return inputScrolling;
+        return inputUiParameter;
 
     }
 
@@ -101,123 +101,123 @@ public class ScrollingServiceTest {
     }
 
 
-    @DisplayName("Find default scrolling for a Patient")
+    @DisplayName("Find default UiParam for a Patient")
     @Test
-    public void findDefaultScrollingByPatientIdTest() {
+    public void findDefaultUiParamByPatientIdTest() {
 
         //GIVEN
 
         mockPatientRepository.save(testSaveOnePatientMethod());
-        testScrollingService.saveAll(testSaveScrollingMethod());
+        testUiParameterService.saveAll(testSaveUiParameterMethod());
 
         //WHEN
         final Patient patientToAnalyze = mockPatientRepository.findAll().get(0);
         final Long patientIdToAnalyze = patientToAnalyze.getId();
-        final Scrolling scrollingToBind = testScrollingService.findAll().get(0);
-        final Long scrollingToBindId = scrollingToBind.getId();
-        testScrollingService.createRelationBetweenPatientScrolling(patientIdToAnalyze, scrollingToBindId);
+        final UiParameter uiParameterToBind = testUiParameterService.findAll().get(0);
+        final Long uiParameterToBindId = uiParameterToBind.getId();
+        testUiParameterService.createRelationBetweenPatientAndUiParam(patientIdToAnalyze, uiParameterToBindId);
 
 
-        final Scrolling scrollingToFind = new Scrolling(true, true, 100L, "bec8a3");
-        scrollingToFind.setId(scrollingToBindId);
+        final UiParameter uiParameterToFind = new UiParameter(true, true, 100L, "bec8a3");
+        uiParameterToFind.setId(uiParameterToBindId);
 
         //THEN
-        assertThat(testScrollingService.findDefaultScrollingByPatientId(patientIdToAnalyze).getId(), equalTo(scrollingToFind.getId()));
+        assertThat(testUiParameterService.findDefaultUiParameterByPatientId(patientIdToAnalyze).getId(), equalTo(uiParameterToFind.getId()));
 
     }
 
-    @DisplayName("Get every Scrollings in repository")
+    @DisplayName("Get every Ui Param in repository")
     @Test
-    public void getAllScrollings(){
+    public void getAllUiParam(){
 
        //GIVEN
 
-       List<Scrolling> inputScrolling = testSaveScrollingMethod();
+       List<UiParameter> inputUiParameter = testSaveUiParameterMethod();
 
         //WHEN
 
         mockPatientRepository.save(testSaveOnePatientMethod());
-        testScrollingService.saveAll(testSaveScrollingMethod());
+        testUiParameterService.saveAll(testSaveUiParameterMethod());
 
         // THEN
 
-        assertThat(inputScrolling.size(), equalTo(testScrollingService.findAll().size()));
+        assertThat(inputUiParameter.size(), equalTo(testUiParameterService.findAll().size()));
 
 
     }
 
-    @DisplayName("Edit Scrolling by Id")
+    @DisplayName("Edit UiParam by Id")
     @Test
-    public void setScrollingById(){
+    public void setUiParamById(){
 
         //GIVEN
 
-        Scrolling givenScrolling = new Scrolling (false, true, 500L, "#188e1c" );
-        List<Scrolling> inputScrolling = testSaveScrollingMethod();
+        UiParameter givenUiParameter = new UiParameter(false, true, 500L, "#188e1c" );
+        List<UiParameter> inputUiParameter = testSaveUiParameterMethod();
         mockPatientRepository.save(testSaveOnePatientMethod());
-        testScrollingService.saveAll(inputScrolling);
+        testUiParameterService.saveAll(inputUiParameter);
 
-        final Scrolling scrollingToChange = testScrollingService.findAll().get(0);
-        final Long givenId = scrollingToChange.getId();
+        final UiParameter uiParameterToChange = testUiParameterService.findAll().get(0);
+        final Long givenId = uiParameterToChange.getId();
 
         //WHEN
 
-        Scrolling response = testScrollingService.setScrollingById(givenId,givenScrolling);
+        UiParameter response = testUiParameterService.setUiParameterById(givenId, givenUiParameter);
 
 
         //THEN
         assertThat( response.getId(), equalTo(givenId));
-        assertThat( response.getCodeCouleur(), equalTo(givenScrolling.getCodeCouleur()));
+        assertThat( response.getScrollingColor(), equalTo(givenUiParameter.getScrollingColor()));
 
 
     }
 
-    @DisplayName("Delete Scrolling by Id")
+    @DisplayName("Delete Ui Param by Id")
     @Test
-    public void deleteScrollingById(){
+    public void deleteUiParamById(){
 
         //GIVEN
 
-        List<Scrolling> inputScrolling = testSaveScrollingMethod();
+        List<UiParameter> inputUiParameter = testSaveUiParameterMethod();
         mockPatientRepository.save(testSaveOnePatientMethod());
-        testScrollingService.saveAll(inputScrolling);
+        testUiParameterService.saveAll(inputUiParameter);
 
-        final Scrolling scrollingToDelete = testScrollingService.findAll().get(0);
-        final Long givenId = scrollingToDelete.getId();
+        final UiParameter uiParameterToDelete = testUiParameterService.findAll().get(0);
+        final Long givenId = uiParameterToDelete.getId();
 
         //WHEN
 
-        ResponseEntity response = testScrollingService.deleteScrolling(givenId);
+        ResponseEntity response = testUiParameterService.deleteParameterById(givenId);
 
 
         //THEN
         assertThat( response.getBody(), equalTo("Le noeud a ete supprime"));
-        assertThat( testScrollingService.findAll().size() , equalTo(inputScrolling.size()-1));
+        assertThat( testUiParameterService.findAll().size() , equalTo(inputUiParameter.size()-1));
 
 
     }
 
-    @DisplayName("Create isolated Scrolling")
+    @DisplayName("Create isolated Ui Parameter")
     @Test
-    public void createLonelyScrolling(){
+    public void createLonelyUiParam(){
 
         //GIVEN
 
-        List<Scrolling> inputScrolling = testSaveScrollingMethod();
+        List<UiParameter> inputUiParameter = testSaveUiParameterMethod();
         mockPatientRepository.save(testSaveOnePatientMethod());
-        testScrollingService.saveAll(inputScrolling);
-        Scrolling givenScrolling = new Scrolling (false, true, 500L, "#188e1c" );
+        testUiParameterService.saveAll(inputUiParameter);
+        UiParameter givenUiParameter = new UiParameter(false, true, 500L, "#188e1c" );
 
         //WHEN
-        testScrollingService.createIsolatedScrolling(givenScrolling);
+        testUiParameterService.createIsolatedUiParameter(givenUiParameter);
 
         //THEN
-        assertThat(testScrollingService.findAll().get(3).getCodeCouleur(), equalTo(givenScrolling.getCodeCouleur()));
+        assertThat(testUiParameterService.findAll().get(3).getScrollingColor(), equalTo(givenUiParameter.getScrollingColor()));
 
     }
 
     /*
-    @DisplayName("Link a patient with a Scrolling")
+    @DisplayName("Link a patient with a Ui Parameter")
     @Test
     public void createRelationBetweenPatientScrolling(){
 

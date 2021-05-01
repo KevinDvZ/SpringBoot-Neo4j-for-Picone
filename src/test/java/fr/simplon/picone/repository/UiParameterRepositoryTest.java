@@ -1,7 +1,7 @@
 package fr.simplon.picone.repository;
 
 import fr.simplon.picone.model.Patient;
-import fr.simplon.picone.model.Scrolling;
+import fr.simplon.picone.model.UiParameter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +29,7 @@ import static org.hamcrest.core.IsEqual.equalToObject;
 @DataNeo4jTest
 @Transactional(propagation = Propagation.NEVER)
 @Testcontainers
-public class ScrollingRepositoryTest {
+public class UiParameterRepositoryTest {
 
     @Container
     public static Neo4jContainer neo4jContainer = new Neo4jContainer("neo4j")
@@ -61,12 +61,12 @@ public class ScrollingRepositoryTest {
     private PatientRepository mockPatientRepository;
 
     @Autowired
-    private ScrollingRepository testScrollingRepository;
+    private UiParameterRepository testUiParameterRepository;
 
     @AfterEach
     public void clear(){
         mockPatientRepository.deleteAll();
-        testScrollingRepository.deleteAll();
+        testUiParameterRepository.deleteAll();
         System.out.println("Repos flushed.");
     }
 
@@ -76,14 +76,14 @@ public class ScrollingRepositoryTest {
     }
 
 
-    public List<Scrolling> testSaveScrollingMethod() {
+    public List<UiParameter> testSaveUiParamsMethod() {
 
-        List<Scrolling> inputScrolling = new ArrayList<>();
-        inputScrolling.add(new Scrolling(33L, true, true, 100L, "bec8a3"));
-        inputScrolling.add(new Scrolling(34L, false, false, 250L, "829b4f"));
-        inputScrolling.add(new Scrolling(35L, false, false, 850L, "a0c2ba"));
+        List<UiParameter> inputUiParameter = new ArrayList<>();
+        inputUiParameter.add(new UiParameter(33L, true, true, 100L, "bec8a3"));
+        inputUiParameter.add(new UiParameter(34L, false, false, 250L, "829b4f"));
+        inputUiParameter.add(new UiParameter(35L, false, false, 850L, "a0c2ba"));
 
-        return inputScrolling;
+        return inputUiParameter;
 
     }
 
@@ -104,58 +104,58 @@ public class ScrollingRepositoryTest {
     @Test
     public void SDNTest() {
         //GIVEN
-        testScrollingRepository.saveAll(testSaveScrollingMethod());
-        List<Scrolling> inputDATAS = testSaveScrollingMethod();
+        testUiParameterRepository.saveAll(testSaveUiParamsMethod());
+        List<UiParameter> inputDATAS = testSaveUiParamsMethod();
 
         //THEN
-        assertThat( inputDATAS.size(), equalToObject(testScrollingRepository.findAll().size()) );
+        assertThat( inputDATAS.size(), equalToObject(testUiParameterRepository.findAll().size()) );
     }
 
-    @DisplayName("Repository : find Default Scrolling for a Patient")
+    @DisplayName("Repository : find Default UiParam for a Patient")
     @Test
-    public void repoMethodDefaultScrollingTest() {
+    public void repoMethodDefaultUiParamTest() {
         //GIVEN
 
         Patient patient = testSaveOnePatientMethod();
         mockPatientRepository.save(patient);
-        testScrollingRepository.saveAll(testSaveScrollingMethod());
+        testUiParameterRepository.saveAll(testSaveUiParamsMethod());
 
         //WHEN
         final Patient patientToAnalyze = mockPatientRepository.findAll().get(0);
         final Long patientIdToAnalyze = patientToAnalyze.getId();
-        final Scrolling scrollingToBind = testScrollingRepository.findAll().get(0);
-        final Long scrollingToBindId = scrollingToBind.getId();
-        testScrollingRepository.createRelationBetweenPatientScrolling(patientIdToAnalyze,scrollingToBindId );
+        final UiParameter uiParameterToBind = testUiParameterRepository.findAll().get(0);
+        final Long uiParameterToBindId = uiParameterToBind.getId();
+        testUiParameterRepository.createRelationBetweenPatientUiParam(patientIdToAnalyze,uiParameterToBindId );
 
 
-        final Scrolling scrollingToFind = new Scrolling( true, true, 100L, "bec8a3");
+        final UiParameter uiParameterToFind = new UiParameter( true, true, 100L, "bec8a3");
 
         //THEN
-       assertThat( testScrollingRepository.findDefaultScrollingByPatientId(patientIdToAnalyze).getCodeCouleur(), equalTo(scrollingToFind.getCodeCouleur()) );
+       assertThat( testUiParameterRepository.findDefaultUiParamByPatientId(patientIdToAnalyze).getScrollingColor(), equalTo(uiParameterToFind.getScrollingColor()) );
     }
 
-    @DisplayName("Repository : delete a scrolling linked to a patient")
+    @DisplayName("Repository : delete a UiParameter linked to a patient")
     @Test
-    public void deleteScrollingTest() {
+    public void deleteUiParamTest() {
         //GIVEN
 
-        testScrollingRepository.saveAll(testSaveScrollingMethod());
+        testUiParameterRepository.saveAll(testSaveUiParamsMethod());
         mockPatientRepository.save(testSaveOnePatientMethod());
 
         final Patient patientToAnalyze = mockPatientRepository.findAll().get(0);
         final Long patientIdToAnalyze = patientToAnalyze.getId();
-        final Scrolling scrollingToBind = testScrollingRepository.findAll().get(0);
-        final Long scrollingToBindId = scrollingToBind.getId();
+        final UiParameter uiParameterToBind = testUiParameterRepository.findAll().get(0);
+        final Long scrollingToBindId = uiParameterToBind.getId();
 
-        testScrollingRepository.createRelationBetweenPatientScrolling(patientIdToAnalyze,scrollingToBindId );
+        testUiParameterRepository.createRelationBetweenPatientUiParam(patientIdToAnalyze,scrollingToBindId );
 
         // WHEN
 
-        testScrollingRepository.deleteById(scrollingToBindId);
+        testUiParameterRepository.deleteById(scrollingToBindId);
 
 
         //THEN
-        assertThat( testScrollingRepository.findAll().size(), equalTo(2));
+        assertThat( testUiParameterRepository.findAll().size(), equalTo(2));
     }
 
 
