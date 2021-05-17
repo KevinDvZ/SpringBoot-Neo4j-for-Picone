@@ -15,30 +15,31 @@ public class UiParameterController {
     @Autowired
     UiParameterService uiParameterService;
 
-    @CrossOrigin(origins = "*")
+
     @PostMapping(value="/uiparams/new")
     public UiParameter createIsolatedUiParam (@RequestBody UiParameter uiParameter){
         return uiParameterService.createIsolatedUiParameter(uiParameter);
     }
 
-    @CrossOrigin(origins ="*")
+
     @PostMapping(name="PostMappingWithParam", value = "/uiparams")
     public UiParameter getDefaultUiParameterForAPatient (@RequestBody Patient patient, @RequestParam(required = true) String get ){
         Long idPatient = patient.getId();
         return uiParameterService.findDefaultUiParameterByPatientId(idPatient);
     }
 
-    @CrossOrigin(origins ="*")
     @GetMapping(value = "/uiparams")
     public List<UiParameter> getAllUiParameters ( ){
         return uiParameterService.getAllUiParameters();
     }
+
 
     @PutMapping("/uiparams/{id}")
     public UiParameter update(@PathVariable("id") Long id, @RequestBody UiParameter uiParameter) {
         return this.uiParameterService.setUiParameterById(id, uiParameter);
 
     }
+
 
     @DeleteMapping("/uiparams/{id}")
     public ResponseEntity deleteUiParameterById (@PathVariable(value = "id") Long id) {

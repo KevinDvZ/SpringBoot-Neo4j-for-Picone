@@ -52,12 +52,12 @@ public class UiParameter {
         this.byDefault = byDefault;
     }
 
-    public Boolean getActive() {
+    public Boolean getScrollingIsActive() {
         return scrollingIsActive;
     }
 
-    public void setActive(Boolean active) {
-        scrollingIsActive = active;
+    public void setScrollingIsActive(Boolean scrollingIsActive) {
+        this.scrollingIsActive = scrollingIsActive;
     }
 
     public Long getScrollingSpeed() {

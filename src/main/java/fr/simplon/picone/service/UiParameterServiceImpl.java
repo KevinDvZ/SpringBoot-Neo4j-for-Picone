@@ -42,7 +42,7 @@ public class UiParameterServiceImpl implements UiParameterService {
                     p.setByDefault(uiParameter.getByDefault());
                     p.setScrollingColor(uiParameter.getScrollingColor());
                     p.setScrollingSpeed(uiParameter.getScrollingSpeed());
-                    p.setActive(uiParameter.getActive());
+                    p.setScrollingIsActive(uiParameter.getScrollingIsActive());
                     return p;
                 });
 
