@@ -22,10 +22,16 @@ public class UiParameterController {
     }
 
 
-    @PostMapping(name="PostMappingWithParam", value = "/uiparams")
+    @PostMapping(name="PostMappingWithParam", value = "/uiparam")
     public UiParameter getDefaultUiParameterForAPatient (@RequestBody Patient patient, @RequestParam(required = true) String get ){
         Long idPatient = patient.getId();
         return uiParameterService.findDefaultUiParameterByPatientId(idPatient);
+    }
+
+    @PostMapping(name="LinkUiParamToAPatient", value = "/uiparams")
+    public UiParameter linkUiParameterToAPatient (@RequestBody Patient patient, @RequestParam(required = true) Long idParam ){
+        Long idPatient = patient.getId();
+        return uiParameterService.createRelationBetweenPatientAndUiParam(idPatient, idParam);
     }
 
     @GetMapping(value = "/uiparams")
