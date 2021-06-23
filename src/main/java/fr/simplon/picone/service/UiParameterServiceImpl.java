@@ -47,7 +47,10 @@ public class UiParameterServiceImpl implements UiParameterService {
                 });
 
         monScro.map(this.uiParameterRepository::save);
-         Optional<UiParameter> optionalEntity = uiParameterRepository.findById(id);
+        if (uiParameter.getByDefault() == true) {
+            this.setUniqueDefaultUiParameter(uiParameter);
+        }
+        Optional<UiParameter> optionalEntity = uiParameterRepository.findById(id);
          UiParameter uiParameterRes = optionalEntity.get();
          return uiParameterRes;
     }
@@ -85,6 +88,28 @@ public class UiParameterServiceImpl implements UiParameterService {
     @Override
     public UiParameter createIsolatedUiParameter(UiParameter uiParameter) {
         return uiParameterRepository.save(uiParameter);
+    }
+
+    @Override
+    public void setUniqueDefaultUiParameter(UiParameter uiParameter){
+
+         int uiParameterID = Math.toIntExact(uiParameter.getId());
+       List<UiParameter> listAllUiParameter = uiParameterRepository.findAll();
+
+       for  ( int i=0; i<listAllUiParameter.size(); i++){
+           int uiParamListID = Math.toIntExact(listAllUiParameter.get(i).getId());
+
+           if ( uiParameterID == uiParamListID ) {
+               listAllUiParameter.get(i).setByDefault(true);
+           } else {
+               listAllUiParameter.get(i).setByDefault(false);
+           }
+
+
+       }
+
+       Optional.ofNullable(listAllUiParameter).map(this.uiParameterRepository::saveAll);
+
     }
 
     @Override

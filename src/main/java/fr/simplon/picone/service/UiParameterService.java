@@ -30,4 +30,6 @@ public interface UiParameterService {
     UiParameter createRelationBetweenPatientAndUiParam(Long patientIdToAnalyze, Long UiParamToBindId);
 
     UiParameterRepository getInjectedBean();
+
+    void setUniqueDefaultUiParameter(UiParameter uiParameter);
 }

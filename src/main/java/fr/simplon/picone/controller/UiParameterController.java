@@ -3,6 +3,7 @@ package fr.simplon.picone.controller;
 import fr.simplon.picone.model.Patient;
 import fr.simplon.picone.model.UiParameter;
 import fr.simplon.picone.service.UiParameterService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ public class UiParameterController {
     UiParameterService uiParameterService;
 
 
+    @ApiOperation(value = "Create an isolated node in Neo4j, tagged with UiParameter label.", notes="Node will not be connected. Consider to use the controller postmapping.")
     @PostMapping(value="/uiparams/new")
     public UiParameter createIsolatedUiParam (@RequestBody UiParameter uiParameter){
         return uiParameterService.createIsolatedUiParameter(uiParameter);
@@ -27,6 +29,13 @@ public class UiParameterController {
         Long idPatient = patient.getId();
         return uiParameterService.findDefaultUiParameterByPatientId(idPatient);
     }
+
+    @PostMapping(name="PostMappingWithParam", value = "/uiparam/default")
+    public void setDefaultDefaultUiParameter  (@RequestBody UiParameter uiParameter){
+         uiParameterService.setUniqueDefaultUiParameter(uiParameter);
+    }
+
+
 
     @PostMapping(name="LinkUiParamToAPatient", value = "/uiparams")
     public UiParameter linkUiParameterToAPatient (@RequestBody Patient patient, @RequestParam(required = true) Long idParam ){
