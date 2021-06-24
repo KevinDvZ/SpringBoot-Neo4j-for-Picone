@@ -57,6 +57,10 @@ public class PatientController {
         if (password != null){
             currentPatient.setPassword(password);
         }
+        String image= patient.getImage();
+        if (image != null) {
+            currentPatient.setImage(image);
+        }
         patientService.updatePatient(currentPatient);
         return currentPatient;
     } else {

@@ -1,7 +1,7 @@
 package fr.simplon.picone.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.simplon.picone.model.Scrolling;
-import fr.simplon.picone.service.ScrollingService;
+import fr.simplon.picone.model.UiParameter;
+import fr.simplon.picone.service.UiParameterService;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.neo4j.AutoConfigureDataNeo4j;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.json.JsonContent;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import org.springframework.http.MediaType;
@@ -26,25 +25,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                            @DataNeo4jTest and @WebMvcTest set @BootstrapWith annotation and having two @BootstrapWith
                            annotations in a test class is not supported. */
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(ScrollingController.class)
-public class ScrollingControllerTest {
+@WebMvcTest(UiParameterController.class)
+public class UiParameterControllerTest {
 
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private ScrollingService service;
+    private UiParameterService service;
 
 
-    @DisplayName("Scrolling list")
+    @DisplayName("Ui Param list")
     @Test
-    public void getAllScrollingsTest() throws Exception {
+    public void getAllUiParamTest() throws Exception {
 
         //GIVEN
 
         //WHEN
-        mockMvc.perform(get("/scrollings"))
+        mockMvc.perform(get("/uiparams"))
 
 
                 //THEN le statut de la réponse http est OK.
@@ -52,25 +51,25 @@ public class ScrollingControllerTest {
 
     }
 
-    @DisplayName("get Default Scrolling for user")
+    @DisplayName("get Default UiParam for user")
     @Test
-    public void getDefaultScrollingByBody() throws Exception {
+    public void getDefaultUiParamByBody() throws Exception {
         //GIVEN
 
         ObjectMapper mapper = new ObjectMapper();
         // body request
-        String json = mapper.writeValueAsString(new Scrolling(33L, true,true, 100L,"bec8a3"));
+        String json = mapper.writeValueAsString(new UiParameter(33L, true,true, 100L,"bec8a3"));
        // request param
         String get = "";
 
         // simule le comportement de l'id en BDD Neo4j
-        Scrolling scrollingOut =new Scrolling(true,true, 100L,"bec8a3");
-        scrollingOut.setId(33L);
-        when(service.findDefaultScrollingByPatientId(isA(Long.class))).thenReturn(scrollingOut);
+        UiParameter uiParameterOut =new UiParameter(true,true, 100L,"bec8a3");
+        uiParameterOut.setId(33L);
+        when(service.findDefaultUiParameterByPatientId(isA(Long.class))).thenReturn(uiParameterOut);
 
         //WHEN
 
-        mockMvc.perform(post("/scrollings","PostMappingWithParam").param("get",get).content(json).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/uiparams","PostMappingWithParam").param("get",get).content(json).contentType(MediaType.APPLICATION_JSON))
 
         //THEN le statut de la réponse http est OK.
         .andExpect(status().isOk())
